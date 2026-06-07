@@ -1,4 +1,3 @@
-
 @include('partials.main.header')
     <div class="no-bottom no-top" id="content">
         <div class="msg" style="display: none;"></div>

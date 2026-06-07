@@ -75,7 +75,11 @@ class CategoryController extends Controller
             }
             $category->image = $request->file('image')->store('categories', 'public');
         }
-        $category->update();
+
+        $category->update([
+            'name' => $request->name,
+            'description' => $request->description,
+        ]);
 
         session()->flash('status','دسته با موفقیت ویزایش شد.');
         return redirect()->route('category.create');

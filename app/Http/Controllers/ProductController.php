@@ -115,9 +115,11 @@ class ProductController extends Controller
             'discount' => 'nullable|numeric|min:0|max:100',
         ]);
 
-        $unique_name = Product::where('name',$request->name)->first();
-        if ($unique_name != $product){
-            session('error','نام انتخابی قبلا ثبت شده است.');
+        $existingProduct = Product::where('name', $request->name)
+            ->where('id', '!=', $product->id)
+            ->first();
+        if ($existingProduct) {
+            session()->flash('error', 'نام انتخابی قبلا ثبت شده است.');
             return redirect()->back();
         }
         $request->price =  str_replace(',', '', $request->price);
@@ -143,7 +145,7 @@ class ProductController extends Controller
             'active' => $active,
             'image' => $imagePath
         ]);
-        session('status','محصول مورد نظر با موفقیت ویرایش شد.');
+        session()->flash('status', 'محصول مورد نظر با موفقیت ویرایش شد.');
         return redirect()->back();
 
     }

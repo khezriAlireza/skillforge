@@ -82,27 +82,21 @@ class RegisteredUserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'user_name' => ['required', 'string', 'lowercase', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'phone' => ['regex:/^09\d{9}$/']
+            'p_num' => ['nullable', 'regex:/^09\d{9}$/', 'unique:users,p_num'],
         ]);
 
-        if ($request->phone != null){
-            $user = User::create([
-                'name' => $request->name,
-                'user_name' => $request->user_name,
-                'role' => 'customer',
-                'phone' => $request->phone,
-                'password' => Hash::make($request->password),
-            ]);}
-        else{
-            $user = User::create([
-                'name' => $request->name,
-                'user_name' => $request->user_name,
-                'role' => 'customer',
-                'password' => Hash::make($request->password),
-            ]);
+        $userData = [
+            'name' => $request->name,
+            'user_name' => $request->user_name,
+            'role' => 'customer',
+            'password' => Hash::make($request->password),
+        ];
+
+        if ($request->filled('p_num')) {
+            $userData['p_num'] = $request->p_num;
         }
 
-
+        $user = User::create($userData);
 
         event(new Registered($user));
 
@@ -162,18 +156,19 @@ class RegisteredUserController extends Controller
         $isPhone = preg_match('/^09\d{9}$/', $identifier);
 
         if ($isPhone) {
-            $user = User::where('p_num',$isPhone)->exists();
-            if ($user){
-                dd('test');
+            if (User::where('p_num', $identifier)->exists()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'این شماره قبلاً ثبت شده است. لطفاً وارد شوید.',
+                ]);
             }
-            $code = rand(10000, 99999);
-            // Send SMS using Kavenegar, Melipayamak, etc.
 
-            // Save in session or DB
-            session(['sms_code' => $code, 'sms_phone' => $request->phone]);
-            return response()->json(['success' => true]);
+            return response()->json([
+                'success' => false,
+                'message' => 'ورود با پیامک در حال حاضر فعال نیست. لطفاً از ثبت‌نام معمولی استفاده کنید.',
+            ]);
 
-        }else {
+        } else {
             $user = User::where('user_name', $identifier)->first();
             if ($user) {
                 return response()->json([
@@ -202,16 +197,10 @@ class RegisteredUserController extends Controller
 
     public function verifyCode(Request $request)
     {
-        if ($request->code == session('sms_code') && $request->phone == session('sms_phone')) {
-            $user = User::firstOrCreate(
-                ['phone' => $request->phone],
-                ['username' => $request->username, 'password' => Hash::make(Str::random(8))]
-            );
-            Auth::login($user);
-            return response()->json(['success' => true]);
-        }
-
-        return response()->json(['success' => false]);
+        return response()->json([
+            'success' => false,
+            'message' => 'ورود با پیامک در حال حاضر فعال نیست.',
+        ]);
     }
 
 

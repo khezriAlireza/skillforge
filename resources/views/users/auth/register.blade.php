@@ -270,7 +270,7 @@
                                 <div class="col-md-6">
                                     <div class="field-set">
                                         <label>نام:<span style="color: red"> * </span></label>
-                                        <input type="text" name="name" :value="old('name')" required autofocus autocomplete="name" class="form-control">
+                                        <input type="text" name="name" value="{{ old('name', $user->name) }}" required autofocus autocomplete="name" class="form-control">
                                     </div>
                                 </div>
 
@@ -278,7 +278,7 @@
                                 <div class="col-md-6">
                                     <div class="field-set">
                                         <label>نام کاربری:<span style="color: red"> * </span></label>
-                                        <input type="text" name="user_name" :value="old('user_name')" required autocomplete="username" class="form-control">
+                                        <input type="text" name="user_name" value="{{ old('user_name') }}" required autocomplete="username" class="form-control">
                                         @error('user_name')
                                         <div class="text-danger">{{ $message }}</div>
                                         @enderror
@@ -310,8 +310,8 @@
                                 <div class="col-md-6">
                                     <div class="field-set">
                                         <label>تلفن:</label>
-                                        <input type='text' name='phone' id='phone' class="form-control">
-                                        @error('phone')
+                                        <input type='text' name='p_num' id='phone' value="{{ old('p_num') }}" class="form-control">
+                                        @error('p_num')
                                         <div class="text-danger">{{$message}}</div>
                                         @enderror
                                     </div>

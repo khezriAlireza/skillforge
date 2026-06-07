@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\CartItem;
 use App\Models\Order;
 use App\Models\User;
-use App\Policies\OrderPolicy;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -44,7 +42,7 @@ class ProfileController extends Controller
             return redirect()->back();
         }
         $user->update([
-            'username' => $request->input('username'),
+            'user_name' => $request->input('username'),
             'name' => $request->input('name'),
             'p_num' => $request->input('p_num'),
         ]);
@@ -83,6 +81,11 @@ class ProfileController extends Controller
 
     public function customer_profile_update(Request $request)
     {
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'p_num' => ['nullable', 'regex:/^09\d{9}$/', 'unique:users,p_num,'.$request->user()->id],
+        ]);
+
         $user = $request->user();
 
         $user->update([
@@ -133,8 +136,8 @@ class ProfileController extends Controller
 
     public function order_lists()
     {
-        if (!auth()->user()->role === 'admin'){
-            abort(403,'شما اجازه ایجاد زیردسته را ندارید.');
+        if (auth()->user()->role !== 'admin') {
+            abort(403, 'شما اجازه مشاهده سفارشات را ندارید.');
 
         }
         $orders = Order::orderBy('id', 'desc')->with('items.product')->paginate(6);

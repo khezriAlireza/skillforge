@@ -4,6 +4,7 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SubCategoryController;
@@ -24,7 +25,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'welcome'])->name('welcome');
 Route::get('/SubCategory/{category}', [HomeController::class, 'sub_categories'])->name('subCategories');
 Route::get('/products/{subCategory}', [HomeController::class, 'products'])->name('products.main');
-Route::get('/products/1', [HomeController::class, 'products'])->name('products.main1');
 /////////////////////////////////////////////////   Cart      //////////////////////////////////////////////////////////
 
 Route::get('/dashboard',[HomeController::class,'dashboard'])->middleware('auth','verified')->name('dashboard');
@@ -36,6 +36,7 @@ Route::get('/cart-modal', [CartController::class, 'cart_modal'])->name('cart.mod
 Route::get('/cart/add/{id}', [CartController::class, 'addToCart'])->name('cart.add');
 Route::post('/cart/remove', [CartController::class, 'removeItem'])->name('cart.remove');
 Route::post('/cart/clear', [CartController::class, 'clearCart'])->name('cart.clear');
+Route::post('/cart/checkout', [OrderController::class, 'checkout'])->middleware('auth')->name('cart.checkout');
 
 /////////////////////////////////////////////////   Profile      //////////////////////////////////////////////////////////
 
@@ -69,7 +70,8 @@ Route::get('/list/admins', [UserController::class, 'admin_list'])
 Route::get('/category/create', [CategoryController::class, 'create'])
     ->middleware(['auth', 'verified'])->name('category.create');
 
-Route::post('/category/store', [CategoryController::class, 'store'])->name('category.store');
+Route::post('/category/store', [CategoryController::class, 'store'])
+    ->middleware(['auth', 'verified'])->name('category.store');
 
 Route::get('/category/show/{category}', [CategoryController::class, 'edit'])
     ->middleware(['auth', 'verified'])->name('category.edit');
@@ -132,3 +134,5 @@ Route::get('/blog/show/{post}',[BlogController::class,'show'])->name('post.show'
 Route::get('/blog/list',[BlogController::class,'list'])->name('post.list');
 ///////////////////////////////////////////////// Auth /////////////////////////////////////////////////////////////////
 require __DIR__.'/auth.php';
+
+Route::fallback([HomeController::class,'notFound']);

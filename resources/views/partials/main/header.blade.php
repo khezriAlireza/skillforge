@@ -186,7 +186,7 @@
                                     <ul>
                                         <li><a class="menu-item" href="{{route('customer.profile')}}">حساب کاربری</a></li>
                                         <li><a class="menu-item" href="{{route('customer.order.list')}}">سفارشات</a></li>
-                                        <li><a class="menu-item" href="pricing-table-three.html">مشاهده سابقه پرداخت‌ها</a></li>
+                                        <li><a class="menu-item" href="{{ route('customer.order.list') }}">مشاهده سابقه پرداخت‌ها</a></li>
                                         <li>
                                             <form method="POST" action="{{ route('logout') }}">
                                                 @csrf

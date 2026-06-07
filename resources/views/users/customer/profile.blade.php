@@ -17,19 +17,17 @@
                     <div class="p-5 rounded-10 shadow-soft bg-dark-1">
                         <form class="form-border" method="POST" action="{{ route('customer.profile.update') }}">
                             @csrf
-                            <h4>🎮 به پروفایل کاربری خود خوش آمدید!</h4>
-                            <p>
-
-                                نه اسمی، نه اطلاعاتی، انگار یه شبحی وسط سرورای KDA Market داری می‌چرخی!
-
-                                پس یا خودتو جمع و جور کن و پروفایلتو کامل کن، یا برو از لابی بیرون و جا رو برای پلیرای
-                                واقعی خالی کن! 💀🔥
+                            <h4>🎮 پروفایل کاربری</h4>
+                            <p>اطلاعات حساب خود را در این بخش مشاهده و ویرایش کنید.</p>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="field-set">
                                         <label>نام:<span style="color: red">  </span></label>
                                         <input type="text" name="name" value="{{$user->name}}" required autofocus
                                                autocomplete="name" class="form-control">
+                                        @error('name')
+                                        <small style="color: red;">{{ $message }}</small>
+                                        @enderror
                                     </div>
                                 </div>
 
@@ -48,6 +46,9 @@
                                         <label>تلفن:</label>
                                         <input type='text' value="{{$user->p_num}}" name='p_num' id='phone'
                                                class="form-control">
+                                        @error('p_num')
+                                        <small style="color: red;">{{ $message }}</small>
+                                        @enderror
                                     </div>
                                 </div>
 

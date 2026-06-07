@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api\v1;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -14,19 +14,26 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         $request->validate([
-            'user_name' => 'required | lowercase | string | max:40 | unique:users,user_name',
-            'password' => 'confirmed | required | ',Password::defaults(),
-            'name' => 'required | string',
-            'phone' => 'nullable | regex:/^09\d{9}$/'
+            'user_name' => 'required|lowercase|string|max:40|unique:users,user_name',
+            'password' => ['required', 'confirmed', Password::defaults()],
+            'name' => 'required|string',
+            'p_num' => 'nullable|regex:/^09\d{9}$/|unique:users,p_num',
         ]);
-        $user = User::create($request->only('user_name','password','name','phone'));
+
+        $user = User::create([
+            'user_name' => $request->user_name,
+            'name' => $request->name,
+            'password' => Hash::make($request->password),
+            'p_num' => $request->p_num,
+            'role' => 'customer',
+        ]);
+
         $token = $user->createToken('authToken')->accessToken;
         return response()->json([
             'user' => $user,
             'token' => $token,
-            'message' => 'User Has Created'
-        ],Response::HTTP_OK);
-
+            'message' => 'User Has Created',
+        ], Response::HTTP_OK);
     }
 
 
@@ -60,20 +67,15 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        $credentials = $request->only('user_name', 'password');
-        $validator = Validator::make($credentials,[
+        $request->validate([
             'user_name' => 'required',
-            'password' => 'required | min:8'
+            'password' => 'required|min:8',
         ]);
-        if ($validator->fails()){
+
+        if (! auth()->attempt(['user_name' => $request->user_name, 'password' => $request->password])) {
             return response()->json([
-                'message' => $validator->messages(),
-            ],Response::HTTP_UNPROCESSABLE_ENTITY);
-        }
-        if (! auth()->attempt(['user_name' => $request->user_name, 'password' => $request->password])){
-            return response()->jason([
                 'message' => 'Invalid Credentials',
-                ],Response::HTTP_UNAUTHORIZED);
+            ], Response::HTTP_UNAUTHORIZED);
         }
         $user = auth()->user();
         $token = $user->createToken('authToken')->accessToken;

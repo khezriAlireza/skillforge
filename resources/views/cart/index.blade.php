@@ -1,4 +1,10 @@
 @include('partials.main.header')
+@if(session('error'))
+    <div class="container mt-3"><div class="alert alert-danger text-center">{{ session('error') }}</div></div>
+@endif
+@if(session('message'))
+    <div class="container mt-3"><div class="alert alert-success text-center">{{ session('message') }}</div></div>
+@endif
 <section id="subheader" class="jarallax">
     <div class="de-gradient-edge-bottom"></div>
     <img src="images/background/6.webp" class="jarallax-img" alt="">
@@ -59,9 +65,12 @@
                     </button>
                 </div>
                 <div class="col-6">
-                    <button class=" btn-main px-4 py-2" style="min-width: 200px;">
-                        تایید و پرداخت
-                    </button>
+                    <form method="POST" action="{{ route('cart.checkout') }}">
+                        @csrf
+                        <button type="submit" class="btn-main px-4 py-2" style="min-width: 200px;">
+                            تایید و پرداخت
+                        </button>
+                    </form>
                 </div>
             </div>
         @else

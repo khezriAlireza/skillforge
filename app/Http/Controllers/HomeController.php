@@ -24,8 +24,8 @@ class HomeController extends Controller
     {
         $categories = Category::all();
         $products = Product::where('is_special',1)->get();
-            $cartQuantity = CartItem::where('user_id', Auth::id())->with('product')->get();
-            $cartItems = $cartQuantity->sum('quantity');
+        $cartQuantity = CartItem::where('user_id', Auth::id())->with('product')->get();
+        $cartItems = $cartQuantity->sum('quantity');
         $blogs = Blog::where('favourite',1)->get();
         return view('welcome',compact('categories','products','cartItems','blogs'));
     }
@@ -43,7 +43,9 @@ class HomeController extends Controller
         $cartQuantity = CartItem::where('user_id', Auth::id())->with('product')->get();
         $cartItems = $cartQuantity->sum('quantity');
         $products = Product::with('subCategory')
-            ->where('category_id',$subCategory->category_id)->where('active',1)->get()
+            ->where('sub_category_id', $subCategory->id)
+            ->where('active', 1)
+            ->get()
             ->map(function ($product) {
                 $product->final_price = $product->final_price; // Call accessor
                 return $product;
@@ -51,5 +53,12 @@ class HomeController extends Controller
         $subCategories = SubCategory::where('category_id',$subCategory->category_id)->get();
 
         return view('products.main',compact('subCategories','subCategory','products','cartItems'));
+    }
+
+    public function notFound()
+    {
+        $cartQuantity = CartItem::where('user_id', Auth::id())->with('product')->get();
+        $cartItems = $cartQuantity->sum('quantity');
+        return view('errors.404',['cartItems'=>$cartItems, 'cartQuantity'=>$cartQuantity]);
     }
 }

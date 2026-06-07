@@ -1,5 +1,8 @@
 @include('partials.main.header')
-    <!-- content begin -->
+@if(session('message'))
+    <p class="msg" style="display: none;">{{ session('message') }}</p>
+@endif
+<!-- content begin -->
     <div class="no-bottom no-top" id="content">
         <div id="top"></div>
         <!-- section begin -->
@@ -21,7 +24,7 @@
         <section class="no-top">
             <div class="container">
                 <div class="row">
-                        @if(!$orders)
+                        @if($orders->isNotEmpty())
                         <div class="col-md-12">
                             <table class="table table-pricing dark-style text-center">
                                 <thead>
@@ -37,33 +40,26 @@
                                 <tbody>
 
                                 @foreach($orders as $order)
-
-                                    <tr>
-                                        <td>
-                                            #{{$order->id}}
-                                        </td>
-                                    <td>
-                                        {{ ($order->created_at)->format('Y/m/d') }}
-                                    </td>
-
                                     @foreach($order->items as $item)
-                                        <td>{{ $item->product->name }}</td>
-                                        <td>تعداد: {{ $item->quantity }}</td>
+                                    <tr>
+                                        <td>#{{ $order->id }}</td>
+                                        <td>{{ $order->created_at->format('Y/m/d') }}</td>
+                                        <td>{{ $item->product->name ?? '—' }}</td>
+                                        <td>{{ $item->quantity }}</td>
+                                        <td>{{ number_format($item->price * $item->quantity) }} تومان</td>
+                                        <td>
+                                            @if($order->status == 'completed')
+                                                <div class="text-success">پرداخت شده</div>
+                                            @elseif($order->status == 'canceled')
+                                                <div class="text-danger">لغو شده</div>
+                                            @elseif($order->status == 'pending')
+                                                <div class="text-info">در حال بررسی</div>
+                                            @elseif($order->status == 'processing')
+                                                <div class="text-warning">در حال پردازش</div>
+                                            @endif
+                                        </td>
+                                    </tr>
                                     @endforeach
-                                    <td>{{ number_format($order->total_price) }} تومان</td>
-                                    <td>
-                                        @if($order->status == 'completed')
-                                           <div class="text-success">{{'پرداخت شده'}}</div>
-                                        @elseif($order->status == 'canceled')
-                                            <div class="text-danger">{{'لفو شده'}}</div>
-                                        @elseif($order->status == 'pending')
-                                            <div class="text-info">{{'در حال بررسی'}}</div>
-                                        @elseif($order->status == 'processing')
-                                            <div class="text-warning">{{'در حال پردازش'}}</div>
-                                        @endif
-                                    </td>
-
-                                </tr>
                                 @endforeach
 
                                 </tbody>
@@ -172,6 +168,15 @@
 ================================================== -->
 <script src="{{asset('js/plugins.js')}}"></script>
 <script src="{{asset('js/designesia.js')}}"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        let msgBox = document.querySelector('.msg');
+        if (msgBox && msgBox.textContent.trim() !== '') {
+            msgBox.style.display = 'block';
+            setTimeout(() => { msgBox.style.display = 'none'; }, 4000);
+        }
+    });
+</script>
 
 </body>
 
