@@ -15,13 +15,13 @@
                             <div class="container">
                                 <div class="row gx-5 align-items-center">
                                     <div class="col-lg-8 offset-lg-2 mb-sm-30">
-                                        <div class="subtitle blink mb-4">سرورها در دسترس هستند</div>
+                                        <div class="subtitle blink mb-4">{{ __('frontend.servers_available') }}</div>
                                         <h1 class="slider-title text-uppercase mb-1">نکسوس سایبر</h1>
                                     </div>
                                     <div class="col-lg-6 offset-lg-3">
-                                        <p class="slider-text">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است.</p>
+                                        <p class="slider-text">{{ __('frontend.slider_lorem') }}</p>
                                         <div class="spacer-10"></div>
-                                        <a class="btn-main mb10" href="game-server-1.html"><span>هم اکنون سرور بازی خود را سفارش دهید</span></a>
+                                        <a class="btn-main mb10" href="game-server-1.html"><span>{{ __('frontend.order_server_now') }}</span></a>
                                     </div>
                                 </div>
                             </div>
@@ -33,13 +33,13 @@
                             <div class="container">
                                 <div class="row gx-5 align-items-center">
                                     <div class="col-lg-8 offset-lg-2 mb-sm-30">
-                                        <div class="subtitle blink mb-4">سرورها در دسترس هستند</div>
+                                        <div class="subtitle blink mb-4">{{ __('frontend.servers_available') }}</div>
                                         <h1 class="slider-title text-uppercase mb-1">قلمروهای باستانی</h1>
                                     </div>
                                     <div class="col-lg-6 offset-lg-3">
-                                        <p class="slider-text">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است.</p>
+                                        <p class="slider-text">{{ __('frontend.slider_lorem') }}</p>
                                         <div class="spacer-10"></div>
-                                        <a class="btn-main mb10" href="game-server-1.html"><span>هم اکنون سرور بازی خود را سفارش دهید</span></a>
+                                        <a class="btn-main mb10" href="game-server-1.html"><span>{{ __('frontend.order_server_now') }}</span></a>
                                     </div>
                                 </div>
                             </div>
@@ -51,13 +51,13 @@
                             <div class="container">
                                 <div class="row gx-5 align-items-center">
                                     <div class="col-lg-8 offset-lg-2 mb-sm-30">
-                                        <div class="subtitle blink mb-4">سرورها در دسترس هستند</div>
+                                        <div class="subtitle blink mb-4">{{ __('frontend.servers_available') }}</div>
                                         <h1 class="slider-title text-uppercase mb-1">تندر و شهر</h1>
                                     </div>
                                     <div class="col-lg-6 offset-lg-3">
-                                        <p class="slider-text">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است.</p>
+                                        <p class="slider-text">{{ __('frontend.slider_lorem') }}</p>
                                         <div class="spacer-10"></div>
-                                        <a class="btn-main mb10" href="game-server-1.html"><span>هم اکنون سرور بازی خود را سفارش دهید</span></a>
+                                        <a class="btn-main mb10" href="game-server-1.html"><span>{{ __('frontend.order_server_now') }}</span></a>
                                     </div>
                                 </div>
                             </div>
@@ -69,13 +69,13 @@
                             <div class="container">
                                 <div class="row gx-5 align-items-center">
                                     <div class="col-lg-8 offset-lg-2 mb-sm-30">
-                                        <div class="subtitle blink mb-4">سرورها در دسترس هستند</div>
+                                        <div class="subtitle blink mb-4">{{ __('frontend.servers_available') }}</div>
                                         <h1 class="slider-title text-uppercase mb-1"> انقلاب راه مسابقه </h1>
                                     </div>
                                     <div class="col-lg-6 offset-lg-3">
-                                        <p class="slider-text">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است.</p>
+                                        <p class="slider-text">{{ __('frontend.slider_lorem') }}</p>
                                         <div class="spacer-10"></div>
-                                        <a class="btn-main mb10" href="game-server-1.html"><span>هم اکنون سرور بازی خود را سفارش دهید</span></a>
+                                        <a class="btn-main mb10" href="game-server-1.html"><span>{{ __('frontend.order_server_now') }}</span></a>
                                     </div>
                                 </div>
                             </div>
@@ -100,7 +100,7 @@
                       <div class="swiper-slide" data-bgimage="url(images/slider/2.png)">
                         <div class="sw-caption-thumb">
                             <span class="d-tag">
-                                %12 تخفیف
+                                %12 {{ __('frontend.discount') }}
                             </span>
                             <h3>قلمروهای باستانی</h3>
                         </div>
@@ -108,7 +108,7 @@
                       <div class="swiper-slide" data-bgimage="url(images/slider/3.png)">
                         <div class="sw-caption-thumb">
                             <span class="d-tag">
-                                %20 تخفیف
+                                %20 {{ __('frontend.discount') }}
                             </span>
                             <h3>تندر و شهر</h3>
                         </div>
@@ -116,7 +116,7 @@
                       <div class="swiper-slide" data-bgimage="url(images/slider/4.png)">
                         <div class="sw-caption-thumb">
                             <span class="d-tag">
-                                %15 تخفیف
+                                %15 {{ __('frontend.discount') }}
                             </span>
                             <h3> انقلاب راه مسابقه </h3>
                         </div>
@@ -127,18 +127,19 @@
             </section>
 
             <section class="no-bottom" style="background-size: cover; background-repeat: no-repeat;">
-                @if(!$products->isEmpty('is_special'))
+                @if($products->isNotEmpty())
             <div class="container" style="background-size: cover; background-repeat: no-repeat;">
                 <div class="row gx-3" style="background-size: cover; background-repeat: no-repeat;">
                     <div class="col-lg-12" style="background-size: cover; background-repeat: no-repeat;">
-                        <div class="subtitle wow fadeInUp mb-3 animated" style="background-size: cover; background-repeat: no-repeat; visibility: visible; animation-name: fadeInUp;">محبوب ترین</div>
-                        <h2 class="wow fadeInUp mb20 animated" data-wow-delay=".2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">محصولات پیشنهادی
+                        <div class="subtitle wow fadeInUp mb-3 animated" style="background-size: cover; background-repeat: no-repeat; visibility: visible; animation-name: fadeInUp;">{{ __('frontend.most_popular') }}</div>
+                        <h2 class="wow fadeInUp mb20 animated" data-wow-delay=".2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">{{ __('frontend.featured_products') }}
 
                         </h2>
                     </div>
                     <div class="col-lg-12 wow fadeInUp animated" style="background-size: cover; background-repeat: no-repeat; visibility: visible; animation-name: fadeInUp;">
                         <div class="row g-3" style="background-size: cover; background-repeat: no-repeat;">
                             <div class="owl-carousel rtl" id="testimonial-carousel">
+
                                 @foreach($products as $product)
                                     <div class="item text-center">
                                         <div class="de-item s2">
@@ -146,7 +147,7 @@
                                         <div class="d-overlay">
                                             @if($product->discount)
                                                 <div class="d-label">
-                                                    {{$product->discount}}% تخفیف
+                                                    {{$product->discount}}% {{ __('frontend.discount') }}
                                                 </div>
                                             @endif
                                             <div class="d-text">
@@ -154,23 +155,22 @@
 
                                             @if($product->discount)
                                                     <span class="price"><del>{{number_format($product->price,'3',',')}}</del></span>
-                                                    <span class="price">{{number_format($product->final_price,'3',',')}} تومان</span>
+                                                    <span class="price">{{number_format($product->final_price,'3',',')}} {{ __('frontend.currency') }}</span>
                                             @else
-                                                    <span class="price">{{number_format($product->price,'3',',')}} تومان</span>
+                                                    <span class="price">{{number_format($product->price,'3',',')}} {{ __('frontend.currency') }}</span>
                                             @endif
 
                                             @auth
-                                            <a class="btn-main btn-fullwidth addToCart" data-id="{{ $product->id }}" href="#" ><span>افزودن به سبد خرید</span></a>
+                                            <a class="btn-main btn-fullwidth addToCart" data-id="{{ $product->id }}" href="#" ><span>{{ __('frontend.add_to_cart') }}</span></a>
                                             @endauth
                                             @guest
-                                                <a class="btn-main btn-fullwidth" href="{{route('customer.login')}}" ><span>وارد حساب خود شوید</span></a>
+                                                <a class="btn-main btn-fullwidth" href="{{route('customer.login')}}" ><span>{{ __('frontend.login_to_purchase') }}</span></a>
                                             @endguest
 
                                             </div>
                                         </div>
-
                                             <a href="#">
-                                            <img src="{{'storage/'.$product->image}}" class="img-fluid rounded-10 mb-2" alt="">
+                                            <img src="{{ asset('storage/' . $product->image) }}" class="img-fluid rounded-10 mb-2" alt="{{ $product->name }}">
 
                                         </a>
                                         </div>
@@ -192,7 +192,7 @@
                 <div class="container z-1000">
                     <div class="row align-items-center">
                         <div class="col-lg-6">
-                            <h2 class="wow fadeInUp mb20" data-wow-delay=".2s">دسته بندی محصولات</h2>
+                            <h2 class="wow fadeInUp mb20" data-wow-delay=".2s">{{ __('frontend.product_categories') }}</h2>
                         </div>
                     </div>
                     <div class="row g-4 sequence">
@@ -203,10 +203,10 @@
                                     <div class="d-text" style="background-size: cover; background-repeat: no-repeat;">
                                         <h4>{{$category->name}}</h4>
                                         <p class="d-price">{{$category->description}}</p>
-                                        <a class="btn-main btn-fullwidth" href="{{route('subCategories',['category'=>$category->id])}}" data-hover="هم اکنون سفارش دهید"><span>مشاهده قسمت</span></a>
+                                        <a class="btn-main btn-fullwidth" href="{{route('subCategories',['category'=>$category->id])}}" data-hover="{{ __('frontend.order_now_hover') }}"><span>{{ __('frontend.view_section') }}</span></a>
                                     </div>
                                 </div>
-                                <img src="{{'storage/'.$category->image    }}" class="img-fluid " alt="">
+                                <img src="{{ asset('storage/'.$category->image) }}" class="img-fluid" alt="{{ $category->name }}">
                             </div>
                         </div>
                         @endforeach
@@ -566,7 +566,7 @@
                         <div class="row">
                             <div class="col-lg-6 col-sm-6">
                                 <div class="widget">
-                                    <h5> سرور بازی</h5>
+                                    <h5>{{ __('frontend.game_server') }}</h5>
                                     <ul>
                                         <li><a href="#">تندر و شهر</a></li>
                                         <li><a href="#">مسابقه مرموز الف</a></li>
@@ -579,14 +579,14 @@
                             </div>
                             <div class="col-lg-6 col-sm-6">
                                 <div class="widget">
-                                    <h5>صفحات</h5>
+                                    <h5>{{ __('frontend.pages') }}</h5>
                                     <ul>
-                                        <li><a href="#"> سرور بازی</a></li>
-                                        <li><a href="#">پایگاه دانش</a></li>
-                                        <li><a href="#">درباره ما</a></li>
-                                        <li><a href="#">بازاریابی</a></li>
-                                        <li><a href="#">مکان ها</a></li>
-                                        <li><a href="#">اخبار</a></li>
+                                        <li><a href="#">{{ __('frontend.game_server') }}</a></li>
+                                        <li><a href="#">{{ __('frontend.knowledge_base') }}</a></li>
+                                        <li><a href="#">{{ __('frontend.about_us') }}</a></li>
+                                        <li><a href="#">{{ __('frontend.marketing') }}</a></li>
+                                        <li><a href="#">{{ __('frontend.locations') }}</a></li>
+                                        <li><a href="#">{{ __('frontend.news') }}</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -594,12 +594,12 @@
                     </div>
                     <div class="col-lg-4">
                         <div class="widget">
-                            <h5>درباره ما</h5>
-                            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.
+                            <h5>{{ __('frontend.about_us') }}</h5>
+                            {{ __('frontend.footer_lorem') }}
                             <div class="spacer-10"></div>
                             <div class="spacer-30"></div>
                             <div class="widget">
-                                <h5>ما را دنبال کنید</h5>
+                                <h5>{{ __('frontend.follow_us') }}</h5>
                                 <div class="social-icons">
                                         <a href="#"><i class="fa-brands fa-telegram"></i></a>
                                     <a href="https://discord.com/invite/cxVkzQvA"><i class="fa-brands fa-discord"></i></a>
@@ -617,12 +617,12 @@
                             <div class="de-flex">
                                 <div class="de-flex-col">
                                     <a href="index.html">
-                                        کپی رایت 2024 - طراحی شده توسط روشاک
+                                        {{ __('frontend.copyright') }}
                                     </a>
                                 </div>
                                 <ul class="menu-simple">
-                                    <li><a href="#">شرایط &amp; قوانین</a></li>
-                                    <li><a href="#">سیاست حفظ حریم خصوصی</a></li>
+                                    <li><a href="#">{{ __('frontend.terms') }}</a></li>
+                                    <li><a href="#">{{ __('frontend.privacy_policy') }}</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -694,7 +694,7 @@
                         window.location.href = "{{ route('customer.login') }}";
                     } else {
                         console.log("AJAX Error:", xhr.responseText);
-                        alert("خطا در افزودن به سبد خرید، لطفا دوباره تلاش کنید!");
+                        alert(@json(__('frontend.cart_error')));
                     }
                 }
             });

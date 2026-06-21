@@ -38,7 +38,7 @@ class ProfileController extends Controller
         $user = $request->user();
 
         if ( User::where('user_name', $request->username)->exists() && $user->user_name != $request->username) {
-            session()->flash('error', 'نام کاربری انتخابی توسط کاربر دیگری انتخاب شده است.');
+            session()->flash('error', __('messages.username_taken'));
             return redirect()->back();
         }
         $user->update([
@@ -46,7 +46,7 @@ class ProfileController extends Controller
             'name' => $request->input('name'),
             'p_num' => $request->input('p_num'),
         ]);
-        session()->flash('status', 'اطلاعات کاربر با موفقیت تغییر کرد');
+        session()->flash('status', __('messages.profile_updated'));
         return redirect()->back();
     }
 
@@ -92,7 +92,7 @@ class ProfileController extends Controller
             'name' => $request->input('name'),
             'p_num' => $request->input('p_num'),
         ]);
-        session()->flash('message','اطلاعات کاربر با موفقیت ویرایش شد.');
+        session()->flash('message', __('messages.customer_profile_updated'));
         return redirect()->back();
     }
 
@@ -109,7 +109,7 @@ class ProfileController extends Controller
         // Custom validation for current password
         if (!Hash::check($request->input('current_password'), $user->password)) {
             return redirect()->back()->withErrors([
-                'current_password' => 'رمز عبور فعلی اشتباه است.',
+                'current_password' => __('messages.current_password_wrong'),
             ])->withInput();
         }
 
@@ -118,7 +118,7 @@ class ProfileController extends Controller
             'password' => Hash::make($request->input('password')),
         ]);
 
-        return redirect()->back()->with('message', 'کلمه عبور با موفقیت تغییر کرد.');
+        return redirect()->back()->with('message', __('messages.customer_password_changed'));
     }
 
     public function customer_order_list()
@@ -137,7 +137,7 @@ class ProfileController extends Controller
     public function order_lists()
     {
         if (auth()->user()->role !== 'admin') {
-            abort(403, 'شما اجازه مشاهده سفارشات را ندارید.');
+            abort(403, __('messages.orders_view_forbidden'));
 
         }
         $orders = Order::orderBy('id', 'desc')->with('items.product')->paginate(6);

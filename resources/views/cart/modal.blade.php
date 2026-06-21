@@ -1,25 +1,22 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" dir="{{ $isRtl ? 'rtl' : 'ltr' }}">
 
 <head>
     <title>{{ config('app.name', 'Laravel') }}</title>
     <link rel="icon" href="images/icon.png" type="image/gif" sizes="16x16">
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
     <meta content="width=device-width, initial-scale=1.0" name="viewport" >
-    <meta content="Playhost - Game Hosting Website Template" name="description" >
-    <meta content="" name="keywords" >
-    <meta content="" name="author" >
-    <!-- CSS Files
-    ================================================== -->
-    <link href="{{asset('css/bootstrap.rtl.min.css')}}" rel="stylesheet" type="text/css" id="bootstrap">
+    @if($isRtl)
+        <link href="{{asset('css/bootstrap.rtl.min.css')}}" rel="stylesheet" type="text/css" id="bootstrap">
+    @else
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css" id="bootstrap">
+    @endif
     <link href="{{asset('css/plugins.css')}}" rel="stylesheet" type="text/css" >
     <link href="{{asset('css/swiper.css')}}" rel="stylesheet" type="text/css" >
     <link href="{{asset('css/style.css')}}" rel="stylesheet" type="text/css" >
     <link href="{{asset('css/coloring.css')}}" rel="stylesheet" type="text/css" >
-    <!-- color scheme -->
     <link id="colors" href="{{asset('css/colors/scheme-01.css')}}" rel="stylesheet" type="text/css" >
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
 </head>
 
 <body class="dark-scheme">
@@ -29,23 +26,20 @@
     <div class="container mt-4">
 
             @php
-                $cartTotal = 0; // Variable to store the overall cart total
+                $cartTotal = 0;
             @endphp
 
             @foreach($cartQuantity as $index)
                 @php
-                    // Calculate total price per product
                     $productTotal = $index->quantity * ($index->product->discount ? $index->product->final_price : $index->product->price);
-                    $cartTotal += $productTotal; // Add to the overall cart total
+                    $cartTotal += $productTotal;
                 @endphp
 
                 <div class="row align-items-center mb-4 p-3 product-card">
-                    <!-- تصویر محصول -->
                     <div class="col-3 text-center">
                         <img src="{{ asset('storage/'.$index->product->image) }}" class="img-fluid product-image" alt="">
                     </div>
 
-                    <!-- اطلاعات محصول -->
                     <div class="col-6">
                         <h4 class="category-title">
                             @foreach($categories as $category)
@@ -56,53 +50,40 @@
                         </h4>
                         <h2 class="product-name">{{ $index->product->name }}</h2>
                         <p class="product-description">{{ $index->product->description }}</p>
-                        <p class="product-description">تعداد: {{ $index->quantity }}</p>
+                        <p class="product-description">{{ __('frontend.quantity') }}: {{ $index->quantity }}</p>
 
                         <div class="price-section">
                             @if($index->product->discount)
-                                <p class="d-price"> مبلغ پرداختی:
+                                <p class="d-price"> {{ __('frontend.payment_amount') }}:
                                     <span class="price"><del>{{ number_format($index->product->price, 0, ',', ',') }}</del></span> -
-                                    <span class="price">{{ number_format($index->product->final_price, 0, ',', ',') }} تومان</span>
+                                    <span class="price">{{ number_format($index->product->final_price, 0, ',', ',') }} {{ __('frontend.currency') }}</span>
                                 </p>
                             @else
-                                <p class="d-price"> مبلغ پرداختی:
-                                    <span class="price new-price">{{ number_format($index->product->price, 0, ',', ',') }} تومان</span>
+                                <p class="d-price"> {{ __('frontend.payment_amount') }}:
+                                    <span class="price new-price">{{ number_format($index->product->price, 0, ',', ',') }} {{ __('frontend.currency') }}</span>
                                 </p>
                             @endif
                         </div>
 
-                        <!-- نمایش مجموع قیمت برای این محصول -->
-                        <p class="total-price">مجموع قیمت: {{ number_format($productTotal, 0, ',', ',') }} تومان</p>
+                        <p class="total-price">{{ __('frontend.item_total') }}: {{ number_format($productTotal, 0, ',', ',') }} {{ __('frontend.currency') }}</p>
                     </div>
                 </div>
         @endforeach
 
-    <!-- نمایش مجموع کل سبد خرید -->
         <div class="row">
             <div class="cart-total">
-                <h3>مجموع کل سبد خرید: {{ number_format($cartTotal, 0, ',', ',') }} تومان</h3>
+                <h3>{{ __('frontend.cart_grand_total') }}: {{ number_format($cartTotal, 0, ',', ',') }} {{ __('frontend.currency') }}</h3>
             </div>
-
         </div>
 
     </div>
 </section>
 @else
     <div class="d-flex align-items-center justify-content-center" style="height: 100vh;">
-        <h5 class="m-0">سبد خرید خالی می‌باشد!!</h5>
+        <h5 class="m-0">{{ __('frontend.cart_empty') }}</h5>
     </div>
 @endif
 
-<!-- section close -->
-
-
-
-
-<!-- content close -->
-<!-- footer begin -->
-
-<!-- Javascript Files
-================================================== -->
 <script src="{{asset('js/plugins.js')}}"></script>
 <script src="{{asset('js/designesia.js')}}"></script>
 
@@ -113,26 +94,23 @@
     }
 </script>
 
-
 <script>
     let throttle = false;
 
     $(document).ready(function () {
         $(".plus-btn, .minus-btn").click(function () {
-            if (throttle) return; // اگر درخواست در حال پردازش است، درخواست جدید نپذیرد
+            if (throttle) return;
             throttle = true;
 
             var button = $(this);
             var productId = button.data("id");
             var quantityElement = $(".item-quantity[data-id='" + productId + "']");
-            var currentQuantity = parseInt(quantityElement.text());
             var action = button.hasClass("plus-btn") ? "increase" : "decrease";
 
-            // نمایش مقدار موقت یا لودینگ
             quantityElement.html('<span class="loading"></span>');
 
             $.ajax({
-                url: "{{ route('cart.updateQuantity') }}",  // Dynamically generate URL
+                url: "{{ route('cart.updateQuantity') }}",
                 type: "POST",
                 data: {
                     _token: "{{ csrf_token() }}",
@@ -141,7 +119,7 @@
                 },
                 success: function (response) {
                     if (response.success) {
-                        quantityElement.text(response.newQuantity); // مقدار نهایی را نمایش بده
+                        quantityElement.text(response.newQuantity);
                         $("#cart-count").text(response.cartTotal);
                     } else {
                         alert(response.message);
@@ -149,17 +127,16 @@
                     }
                 },
                 error: function () {
-                    alert("مشکلی پیش آمد، لطفاً دوباره تلاش کنید.");
+                    alert(@json(__('cart.quantity_update_error')));
                     location.reload();
                 },
                 complete: function () {
-                    throttle = false; // پس از اتمام درخواست، پردازش مجدد را مجاز کنیم
+                    throttle = false;
                 }
             });
         });
     });
 </script>
-
 
 </body>
 

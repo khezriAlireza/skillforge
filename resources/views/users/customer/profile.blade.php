@@ -17,12 +17,12 @@
                     <div class="p-5 rounded-10 shadow-soft bg-dark-1">
                         <form class="form-border" method="POST" action="{{ route('customer.profile.update') }}">
                             @csrf
-                            <h4>🎮 پروفایل کاربری</h4>
-                            <p>اطلاعات حساب خود را در این بخش مشاهده و ویرایش کنید.</p>
+                            <h4>🎮 {{ __('frontend.profile_title') }}</h4>
+                            <p>{{ __('frontend.profile_description') }}</p>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="field-set">
-                                        <label>نام:<span style="color: red">  </span></label>
+                                        <label>{{ __('frontend.name') }}:<span style="color: red">  </span></label>
                                         <input type="text" name="name" value="{{$user->name}}" required autofocus
                                                autocomplete="name" class="form-control">
                                         @error('name')
@@ -34,7 +34,7 @@
 
                                 <div class="col-md-6">
                                     <div class="field-set">
-                                        <label>نام کاربری:<span style="color: red">  </span></label>
+                                        <label>{{ __('frontend.username') }}:<span style="color: red">  </span></label>
                                         <input type="text" name="user_name" value="{{$user->user_name}}" readonly
                                                class="form-control">
                                     </div>
@@ -43,7 +43,7 @@
 
                                 <div class="col-md-6">
                                     <div class="field-set">
-                                        <label>تلفن:</label>
+                                        <label>{{ __('frontend.phone_short') }}:</label>
                                         <input type='text' value="{{$user->p_num}}" name='p_num' id='phone'
                                                class="form-control">
                                         @error('p_num')
@@ -54,19 +54,19 @@
 
                                 <div class="col-lg-6 offset-lg-3 text-center">
                                     <div id='submit'>
-                                        <input type='submit' value='ویرایش اطلاعات' class="btn-main color-2">
+                                        <input type='submit' value='{{ __('frontend.edit_profile') }}' class="btn-main color-2">
                                     </div>
                                 </div>
                         </form>
 
                         <form method="post" action="{{route('customer.password.update')}}">
                             @csrf
-                            <h4>تغیر رمز عبور</h4>
+                            <h4>{{ __('frontend.change_password') }}</h4>
                             <br>
                             <div class="col-md-6">
                                 <div class="field-set">
 
-                                    <label>رمزعبور فعلی:<span style="color: red"> * </span></label>
+                                    <label>{{ __('frontend.current_password') }}:<span style="color: red"> * </span></label>
                                     <input type="password"
                                            name="current_password"
                                            required autocomplete="new-password" class="form-control">
@@ -75,7 +75,7 @@
                                     <br>
                                     @enderror
 
-                                    <label>رمزعبور جدید:<span style="color: red"> * </span></label>
+                                    <label>{{ __('frontend.new_password') }}:<span style="color: red"> * </span></label>
                                     <input type="password"
                                            name="password"
                                            required autocomplete="new-password" class="form-control">
@@ -88,7 +88,7 @@
 
                             <div class="col-md-6">
                                 <div class="field-set">
-                                    <label>تکرار رمزعبور جدید:<span style="color: red"> * </span></label>
+                                    <label>{{ __('frontend.confirm_new_password') }}:<span style="color: red"> * </span></label>
                                     <input type="password"
                                            name="password_confirmation" required autocomplete="new-password"
                                            class="form-control">
@@ -101,8 +101,8 @@
 
                             <div class="col-md-12">
 
-                                <div id='mail_success' class='success'>پیام شما با موفقیت ارسال شد.</div>
-                                <div id='mail_fail' class='error'>با عرض پوزش، این بار در ارسال پیام شما خطایی رخ داد.
+                                <div id='mail_success' class='success'>{{ __('frontend.mail_success') }}</div>
+                                <div id='mail_fail' class='error'>{{ __('frontend.mail_fail') }}
                                 </div>
                                 <div class="clearfix"></div>
 
@@ -111,7 +111,7 @@
                             <div class="col-lg-6 offset-lg-3 mt-2">
                                 <div class="col-lg-6 offset-lg-3 text-center">
                                     <div id='submit'>
-                                        <input type='submit' value='تغییر رمز عبور' class="btn-main color-2">
+                                        <input type='submit' value='{{ __('frontend.change_password') }}' class="btn-main color-2">
                                     </div>
                                 </div>
                             </div>
@@ -132,15 +132,13 @@
             <div class="col-lg-4">
                 <img src="images/logo.png" alt="">
                 <div class="spacer-20"></div>
-                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها
-                    و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و
-                    کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.</p>
+                <p>{{ __('frontend.footer_lorem') }}</p>
             </div>
             <div class="col-lg-4">
                 <div class="row">
                     <div class="col-lg-6 col-sm-6">
                         <div class="widget">
-                            <h5> سرور بازی</h5>
+                            <h5>{{ __('frontend.game_server') }}</h5>
                             <ul>
                                 <li><a href="#">تندر و شهر</a></li>
                                 <li><a href="#">مسابقه مرموز الف</a></li>
@@ -153,14 +151,14 @@
                     </div>
                     <div class="col-lg-6 col-sm-6">
                         <div class="widget">
-                            <h5>صفحات</h5>
+                            <h5>{{ __('frontend.pages') }}</h5>
                             <ul>
-                                <li><a href="#"> سرور بازی</a></li>
-                                <li><a href="#">پایگاه دانش</a></li>
-                                <li><a href="#">درباره ما</a></li>
-                                <li><a href="#">بازاریابی</a></li>
-                                <li><a href="#">مکان ها</a></li>
-                                <li><a href="#">اخبار</a></li>
+                                <li><a href="#">{{ __('frontend.game_server') }}</a></li>
+                                <li><a href="#">{{ __('frontend.knowledge_base') }}</a></li>
+                                <li><a href="#">{{ __('frontend.about_us') }}</a></li>
+                                <li><a href="#">{{ __('frontend.marketing') }}</a></li>
+                                <li><a href="#">{{ __('frontend.locations') }}</a></li>
+                                <li><a href="#">{{ __('frontend.news') }}</a></li>
                             </ul>
                         </div>
                     </div>
@@ -168,21 +166,21 @@
             </div>
             <div class="col-lg-4">
                 <div class="widget">
-                    <h5>خبرنامه</h5>
+                    <h5>{{ __('frontend.newsletter') }}</h5>
                     <form action="blank.php" class="row form-dark" id="form_subscribe" method="post"
                           name="form_subscribe">
                         <div class="col text-center">
                             <a href="#" id="btn-subscribe"><i class="arrow_left bg-color-secondary"></i></a> <input
                                 class="form-control" id="txt_subscribe" name="txt_subscribe"
-                                placeholder="ایمیل خود را وارد کنید" type="text">
+                                placeholder="{{ __('frontend.email_placeholder') }}" type="text">
                             <div class="clearfix"></div>
                         </div>
                     </form>
                     <div class="spacer-10"></div>
-                    <small>ایمیل شما نزد ما محفوظ است. ما اسپم نمی کنیم.</small>
+                    <small>{{ __('frontend.newsletter_privacy') }}</small>
                     <div class="spacer-30"></div>
                     <div class="widget">
-                        <h5>ما را دنبال کنید</h5>
+                        <h5>{{ __('frontend.follow_us') }}</h5>
                         <div class="social-icons">
                             <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
                             <a href="#"><i class="fa-brands fa-twitter"></i></a>
@@ -202,12 +200,12 @@
                     <div class="de-flex">
                         <div class="de-flex-col">
                             <a href="index.html">
-                                کپی رایت 2024 - طراحی شده توسط روشاک
+                                {{ __('frontend.copyright') }}
                             </a>
                         </div>
                         <ul class="menu-simple">
-                            <li><a href="#">شرایط &amp; قوانین</a></li>
-                            <li><a href="#">سیاست حفظ حریم خصوصی</a></li>
+                            <li><a href="#">{{ __('frontend.terms') }}</a></li>
+                            <li><a href="#">{{ __('frontend.privacy_policy') }}</a></li>
                         </ul>
                     </div>
                 </div>

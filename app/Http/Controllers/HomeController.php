@@ -12,14 +12,14 @@ use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
-    public function dashboard()
-    {
-        if (Auth::user()->role === 'admin'){
-            return view('dashboard');
-        }else{
-            return redirect()->route('welcome');
-        }
-    }
+    // public function dashboard()
+    // {
+    //     if (Auth::user()->role === 'admin'){
+    //         return view('dashboard');
+    //     }else{
+    //         return redirect()->route('welcome');
+    //     }
+    // }
     public function welcome()
     {
         $categories = Category::all();

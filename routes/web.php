@@ -4,6 +4,7 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
@@ -21,13 +22,15 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::get('/locale/{locale}', [LocaleController::class, 'switch'])->name('locale.switch');
+
 ///////////////////////////////////////////////////// Main  ////////////////////////////////////////////////////////////
 Route::get('/', [HomeController::class, 'welcome'])->name('welcome');
 Route::get('/SubCategory/{category}', [HomeController::class, 'sub_categories'])->name('subCategories');
 Route::get('/products/{subCategory}', [HomeController::class, 'products'])->name('products.main');
 /////////////////////////////////////////////////   Cart      //////////////////////////////////////////////////////////
 
-Route::get('/dashboard',[HomeController::class,'dashboard'])->middleware('auth','verified')->name('dashboard');
+// Route::get('/dashboard',[HomeController::class,'dashboard'])->middleware('auth','verified')->name('dashboard');
 
 Route::post('/cart/updateQuantity', [CartController::class, 'updateQuantity'])->name('cart.updateQuantity');
 
@@ -37,6 +40,9 @@ Route::get('/cart/add/{id}', [CartController::class, 'addToCart'])->name('cart.a
 Route::post('/cart/remove', [CartController::class, 'removeItem'])->name('cart.remove');
 Route::post('/cart/clear', [CartController::class, 'clearCart'])->name('cart.clear');
 Route::post('/cart/checkout', [OrderController::class, 'checkout'])->middleware('auth')->name('cart.checkout');
+Route::get('/payment/success/{order}', [OrderController::class, 'paymentSuccess'])->middleware('auth')->name('payment.success');
+Route::get('/payment/cancel/{order}', [OrderController::class, 'paymentCancel'])->middleware('auth')->name('payment.cancel');
+
 
 /////////////////////////////////////////////////   Profile      //////////////////////////////////////////////////////////
 

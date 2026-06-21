@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" dir="{{ $isRtl ? 'rtl' : 'ltr' }}">
 
 <head>
     <title>{{ config('app.name', 'Laravel') }}</title>
@@ -11,22 +11,30 @@
     <meta content="" name="author" >
     <!-- CSS Files
     ================================================== -->
-    <link href="{{asset('css/bootstrap.rtl.min.css')}}" rel="stylesheet" type="text/css" id="bootstrap">
+    @if($isRtl)
+        <link href="{{asset('css/bootstrap.rtl.min.css')}}" rel="stylesheet" type="text/css" id="bootstrap">
+    @else
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css" id="bootstrap">
+    @endif
     <link href="{{asset('css/plugins.css')}}" rel="stylesheet" type="text/css" >
     <link href="{{asset('css/swiper.css')}}" rel="stylesheet" type="text/css" >
-    <link href="{{asset('css/style.css')}}" rel="stylesheet" type="text/css" >
+    <link href="{{asset($isRtl ? 'css/style.css' : 'css/style.css')}}" rel="stylesheet" type="text/css" >
     <link href="{{asset('css/coloring.css')}}" rel="stylesheet" type="text/css" >
     <!-- color scheme -->
     <link id="colors" href="{{asset('css/colors/scheme-01.css')}}" rel="stylesheet" type="text/css" >
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-
+    <style>
+        .locale-switcher .locale-link { color: #fff; text-decoration: none; font-size: 13px; padding: 2px 4px; opacity: 0.7; }
+        .locale-switcher .locale-link.active { opacity: 1; font-weight: bold; text-decoration: underline; }
+        .locale-switcher .locale-separator { color: #fff; opacity: 0.5; font-size: 12px; }
+    </style>
 </head>
 
 <body class="dark-scheme">
 <div id="wrapper">
     <div class="float-text show-on-scroll">
-        <span><a href="#">به بالا بروید</a></span>
+        <span><a href="#">{{ __('frontend.scroll_to_top') }}</a></span>
     </div>
     <div class="scrollbar-v show-on-scroll"></div>
     <!-- page preloader begin -->
@@ -57,7 +65,7 @@
                         <div class="de-flex-col header-col-mid">
                             <ul id="mainmenu" class="d-lg-flex">
                                 <li>
-                                    <a class="menu-item" href="game-server-1.html">بازی ها</a>
+                                    <a class="menu-item" href="game-server-1.html">{{ __('frontend.games') }}</a>
                                     <ul class="mega">
                                         <li>
                                             <div class="container">
@@ -154,9 +162,9 @@
                                         </li>
                                     </ul>
                                 </li>
-                                <li><a class="menu-item" href="{{route('post.list')}}">اخبار</a></li>
-                                <li><a class="menu-item" href="{{route('post.list')}}">درباره ما</a></li>
-                                <li><a class="menu-item" href="#">پشتیبانی</a>
+                                <li><a class="menu-item" href="{{route('post.list')}}">{{ __('frontend.news') }}</a></li>
+                                <li><a class="menu-item" href="{{route('post.list')}}">{{ __('frontend.about_us') }}</a></li>
+                                <li><a class="menu-item" href="#">{{ __('frontend.support') }}</a>
                                     <ul>
                                         <li><a class="menu-item" href="https://discord.com/invite/cxVkzQvA">Discord</a></li>
                                         <li><a class="menu-item" href="https://discord.com/invite/cxVkzQvA">Telegram</a></li>
@@ -167,12 +175,12 @@
                                 @guest
                                     <li>
                                     <a class="menu-item" href="#">
-                                        <i class="fa fa-sign-in-alt"></i> <!-- Login Icon -->
+                                        <i class="fa fa-sign-in-alt"></i>
                                         <span></span>
                                     </a>
                                     <ul>
-                                        <li><a class="menu-item" href="{{route('customer.login')}}">ورود</a></li>
-                                        <li><a class="menu-item" href="{{route('customer.register')}}">ثبت نام</a></li>
+                                        <li><a class="menu-item" href="{{route('customer.login')}}">{{ __('frontend.login') }}</a></li>
+                                        <li><a class="menu-item" href="{{route('customer.register')}}">{{ __('frontend.register') }}</a></li>
                                     </ul>
                                 </li>
                                 @endguest
@@ -184,9 +192,9 @@
 
                                     </a>
                                     <ul>
-                                        <li><a class="menu-item" href="{{route('customer.profile')}}">حساب کاربری</a></li>
-                                        <li><a class="menu-item" href="{{route('customer.order.list')}}">سفارشات</a></li>
-                                        <li><a class="menu-item" href="{{ route('customer.order.list') }}">مشاهده سابقه پرداخت‌ها</a></li>
+                                        <li><a class="menu-item" href="{{route('customer.profile')}}">{{ __('frontend.my_account') }}</a></li>
+                                        <li><a class="menu-item" href="{{route('customer.order.list')}}">{{ __('frontend.orders') }}</a></li>
+                                        <li><a class="menu-item" href="{{ route('customer.order.list') }}">{{ __('frontend.payment_history') }}</a></li>
                                         <li>
                                             <form method="POST" action="{{ route('logout') }}">
                                                 @csrf
@@ -196,7 +204,7 @@
                                                         width: 100%;
                                                         color: white"
                                                         class="btn-cyberpunk">
-                                                    <span>خروج</span>
+                                                    <span>{{ __('frontend.logout') }}</span>
                                                 </button>
                                             </form>
                                         </li>
@@ -211,6 +219,9 @@
 
 
                         <div class="de-flex-col">
+                            <div class="me-3">
+                                @include('partials.locale-switcher')
+                            </div>
                             <a style="color: #FFFFFF" href="#" data-bs-toggle="modal" data-bs-target="#pageModal" data-bs-backdrop="true">
                                 <span id="cart-count">{{ $cartItems }}</span>
                                 <i class="fa fa-shopping-cart"></i>
@@ -220,12 +231,12 @@
                                 <div class="modal-dialog modal-lg">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <button type="button"  class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            <button type="button"  class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="{{ __('frontend.close') }}"></button>
                                         </div>
                                         <div class="modal-body" style="background:rgba(20, 20, 50, 0.6);backdrop-filter: blur(10px);                                                 position: relative;" >
                                             <div style="position: relative;">
                                                 <div id="iframe-loader" style="display: none;">
-                                                    در حال بارگذاری...
+                                                    {{ __('frontend.loading') }}
                                                 </div>
                                                 <iframe id="myIframe" src="{{ route('cart.modal') }}" width="100%" height="500px"></iframe>
                                             </div>
@@ -235,7 +246,7 @@
                                                             background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
                                                             color: white"
                                                             onclick="location.href='{{ route('cart.index') }}'" class="btn-cyberpunk">
-                                                        <span>مشاهده سبد خرید</span>
+                                                        <span>{{ __('frontend.view_cart') }}</span>
                                                     </button>
                                                 </div>
                                             @endif

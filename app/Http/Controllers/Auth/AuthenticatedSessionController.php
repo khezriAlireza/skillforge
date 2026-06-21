@@ -19,19 +19,12 @@ class AuthenticatedSessionController extends Controller
         $cartQuantity = CartItem::where('user_id', Auth::id())->with('product')->get();
         $cartItems = $cartQuantity->sum('quantity');
         return view('users.auth.login',['cartItems'=>$cartItems]);
-
     }
-    /**
-     * Display the login view.
-     */
+    
     public function create(): View
     {
         return view('auth.login');
     }
-
-    /**
-     * Handle an incoming authentication request.
-     */
     public function store(LoginRequest $request): RedirectResponse
     {
         $request->authenticate();
@@ -44,10 +37,6 @@ class AuthenticatedSessionController extends Controller
             return redirect()->route('welcome');
         }
     }
-
-    /**
-     * Destroy an authenticated session.
-     */
     public function destroy(Request $request): RedirectResponse
     {
         Auth::guard('web')->logout();

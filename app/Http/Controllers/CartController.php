@@ -36,14 +36,14 @@ class CartController extends Controller
     {
         if (!Auth::check()) {
             return response()->json([
-                'message2' => "لطفاً ابتدا وارد حساب کاربری خود شوید.",
-            ], 401); // ارسال کد 401 برای عدم احراز هویت
+                'message2' => __('cart.login_required'),
+            ], 401);
         }
 
         $product = Product::find($id);
         if (!$product) {
             return response()->json([
-                'message2' => "امکان افزودن محصول به سبد خرید وجود ندارد",
+                'message2' => __('cart.product_not_found'),
             ], 404);
         }
 
@@ -60,7 +60,7 @@ class CartController extends Controller
         }
 
         return response()->json([
-            'message' => "محصول به سبد خرید افزوده شد. برای مشاهده سبد خرید <a href='#' data-bs-toggle='modal' data-bs-target='#pageModal' data-bs-backdrop='true'>کلیک</a> کنید."
+            'message' => __('cart.added'),
         ]);
     }
 
@@ -73,14 +73,14 @@ class CartController extends Controller
             ->first();
 
         if (!$cartItem) {
-            return response()->json(['success' => false, 'message' => 'محصول پیدا نشد.']);
+            return response()->json(['success' => false, 'message' => __('cart.item_not_found')]);
         }
 
         $cartItem->delete();
 
         return response()->json([
             'success' => true,
-            'message' => 'محصول حذف شد.',
+            'message' => __('cart.item_removed'),
             'cartTotal' => CartItem::where('user_id', Auth::id())->sum('quantity')
         ]);
     }
@@ -104,7 +104,7 @@ class CartController extends Controller
             ->first();
 
         if (!$cartItem) {
-            return response()->json(['success' => false, 'message' => 'محصول یافت نشد.']);
+            return response()->json(['success' => false, 'message' => __('cart.cart_item_not_found')]);
         }
 
         if ($request->action === "increase") {

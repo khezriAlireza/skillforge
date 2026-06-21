@@ -5,14 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class SubCategoryController extends Controller
 {
     public function create()
     {
         if (!auth()->user()->can('create',SubCategory::class)){
-            abort(403,'شما اجازه ایجاد زیردسته را ندارید.');
+            abort(403, __('messages.subcategory_create_forbidden'));
         }
         $categories = Category::all();
         $subCategories = SubCategory::orderBy('id', 'desc')->with('category')->paginate(6);
@@ -23,7 +22,7 @@ class SubCategoryController extends Controller
     public function store(Request $request)
     {
         if (!auth()->user()->can('create',SubCategory::class)){
-            abort(403,'شما اجازه ایجاد زیردسته را ندارید.');
+            abort(403, __('messages.subcategory_create_forbidden'));
         }
         $request->validate([
             'name' => 'required|unique:sub_categories,name|max:255',
@@ -33,14 +32,14 @@ class SubCategoryController extends Controller
              'category_id' => $request->category_id,
              'name' => $request->name,
          ]);
-         session()->flash('status','زیر دسته با موفقیت افزوده شد');
+         session()->flash('status', __('messages.subcategory_created'));
          return redirect()->back();
     }
 
     public function update(Request $request)
     {
         if (!auth()->user()->can('update',SubCategory::class)){
-            abort(403,'شما اجازه ویرایش زیردسته را ندارید.');
+            abort(403, __('messages.subcategory_update_forbidden'));
         }
 
         $request->validate([
@@ -54,23 +53,23 @@ class SubCategoryController extends Controller
             'name' => $request->name,
             'category_id' => $request->category_id,
         ]);
-        session()->flash('status','زیردسته با موفقیت ویرایش شد.');
+        session()->flash('status', __('messages.subcategory_updated'));
         return redirect()->back();
     }
 
     public function destroy(SubCategory $subCategory)
     {
         if (!auth()->user()->can('delete',SubCategory::class)){
-            abort(403,'شما اجازه ویرایش زیردسته را ندارید.');
+            abort(403, __('messages.subcategory_update_forbidden'));
         }
         if (!$subCategory){
-            session()->flash('error','زیردسته یافت نشد.');
+            session()->flash('error', __('messages.subcategory_not_found'));
             return redirect()->back();
         }
 
         $subCategory->products()->delete();
         $subCategory->delete();
-        session()->flash('status','زیردسته با موفقیت حذف شد.');
+        session()->flash('status', __('messages.subcategory_deleted'));
         return redirect()->back();
     }
 }

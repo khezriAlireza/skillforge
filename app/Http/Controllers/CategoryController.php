@@ -12,7 +12,7 @@ class CategoryController extends Controller
     public function create()
     {
         if (!auth()->user()->can('create', Category::class)) {
-            abort(403, 'شما اجازه ایجاد این دسته‌بندی را ندارید.');
+            abort(403, __('messages.category_create_forbidden'));
         }
 
         $categories = Category::orderBy('id', 'desc')->paginate(6);
@@ -25,13 +25,13 @@ class CategoryController extends Controller
         if ($user->role == 'admin'){
             $request->validate([
                 'name' => 'required|unique:categories,name|string|max:255',
-                'description' => 'nullable|string',
-                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'description' => 'required|string',
+                'image' => 'required|image|mimes:png,webp,jpg,gif,jpeg|max:2048',
 
             ]);
 
             if (!$request->hasFile('image')){
-                session()->flash('error','تصویری برای دسته انتخاب نکردید.');
+                session()->flash('error', __('messages.category_image_required'));
                return redirect()->back();
             }
 
@@ -44,7 +44,7 @@ class CategoryController extends Controller
                 'description' => $request->description,
                 'image' => $imagePath,
             ]);
-            session()->flash('status','دسته با موفقیت افزوده شد.');
+            session()->flash('status', __('messages.category_created'));
             return redirect()->back();
         }
 
@@ -64,8 +64,8 @@ class CategoryController extends Controller
 
         $request->validate([
             'name' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'description' => 'required|string',
+            'image' => 'nullable|image|mimes:png,webp,jpg,gif,jpeg|max:2048',
         ]);
 
 
@@ -81,18 +81,18 @@ class CategoryController extends Controller
             'description' => $request->description,
         ]);
 
-        session()->flash('status','دسته با موفقیت ویزایش شد.');
+        session()->flash('status', __('messages.category_updated'));
         return redirect()->route('category.create');
     }
 
     public function destroy(Category $category)
     {
         if (!auth()->user()->can('delete', Category::class)) {
-            abort(403, 'شما اجازه ایجاد این دسته‌بندی را ندارید.');
+            abort(403, __('messages.category_create_forbidden'));
         }
 
         if (!$category) {
-            session()->flash('error','دسته یافت نشد.');
+            session()->flash('error', __('messages.category_not_found'));
             return redirect()->route('category.create');
         }
 
@@ -100,7 +100,7 @@ class CategoryController extends Controller
         Storage::delete('public/'.$category->image);
         $category->delete();
 
-        session()->flash('status','دسته با موفیقت حذف شد.');
+        session()->flash('status', __('messages.category_deleted'));
         return redirect()->route('category.create');
     }
 

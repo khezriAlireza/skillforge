@@ -12,7 +12,7 @@
                     <div class="col-lg-4 offset-lg-4">
                         <div class="padding40 rounded-10 shadow-soft bg-dark-1">
                             <div class="text-center">
-                                <h4>به حساب خود وارد شوید</h4>
+                                <h4>{{ __('frontend.login_title') }}</h4>
                                 <div ><h5 class="text-danger">{{ $errors->first('login')}}</h5></div>
 
                             </div>
@@ -24,29 +24,29 @@
                             <form id="form_register" class="form-border" method="POST" action="{{ route('login') }}">
                                 @csrf
                                 <div class="field-set">
-                                    <label>نام کاربری</label>
+                                    <label>{{ __('frontend.username') }}</label>
                                     <input type='text' name='user_name' id='name' class="form-control">
 
                                 </div>
                                 <div class="field-set">
-                                    <label>رمزعبور</label>
+                                    <label>{{ __('frontend.password') }}</label>
                                     <input type='password' name='password' id='password' class="form-control">
                                 </div>
                                 <div class="field-set">
                                     <input type="checkbox" checked id="html" name="remember" value="HTML">
-                                    <label for="html"><span class="op-5">مرا به خاطر بسپار</span></label><br>
+                                    <label for="html"><span class="op-5">{{ __('frontend.remember_me') }}</span></label><br>
                                 </div>
                                 <div class="spacer-20"></div>
                                 <div id="submit">
-                                    <input type="submit" id="send_message" value="ورود" class="btn-main btn-fullwidth rounded-3" />
+                                    <input type="submit" id="send_message" value="{{ __('frontend.login_button') }}" class="btn-main btn-fullwidth rounded-3" />
                                 </div>
                             </form>
                             <div class="text-center">
-                            <h4 class="mt-3">در صورتی که هنوز ثبت نام نکرده اید میتوانید از طریق لینک زیر اقدام کنید.</h4>
+                            <h4 class="mt-3">{{ __('frontend.no_account') }}</h4>
                             </div>
 
                             <div class="title-line text-center">
-                                <a class="btn-sc btn-fullwidth mb10" href="{{route('customer.register')}}">ثبت نام کنید</a>
+                                <a class="btn-sc btn-fullwidth mb10" href="{{route('customer.register')}}">{{ __('frontend.register_now') }}</a>
                             </div>
                         </div>
                     </div>
@@ -65,13 +65,13 @@
                 <div class="col-lg-4">
                     <img src="images/logo.png" alt="" >
                     <div class="spacer-20"></div>
-                    <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.</p>
+                    <p>{{ __('frontend.footer_lorem') }}</p>
                 </div>
                 <div class="col-lg-4">
                     <div class="row">
                         <div class="col-lg-6 col-sm-6">
                             <div class="widget">
-                                <h5> سرور بازی</h5>
+                                <h5>{{ __('frontend.game_server') }}</h5>
                                 <ul>
                                     <li><a href="#">تندر و شهر</a></li>
                                     <li><a href="#">مسابقه مرموز الف</a></li>
@@ -84,14 +84,14 @@
                         </div>
                         <div class="col-lg-6 col-sm-6">
                             <div class="widget">
-                                <h5>صفحات</h5>
+                                <h5>{{ __('frontend.pages') }}</h5>
                                 <ul>
-                                    <li><a href="#"> سرور بازی</a></li>
-                                    <li><a href="#">پایگاه دانش</a></li>
-                                    <li><a href="#">درباره ما</a></li>
-                                    <li><a href="#">بازاریابی</a></li>
-                                    <li><a href="#">مکان ها</a></li>
-                                    <li><a href="#">اخبار</a></li>
+                                    <li><a href="#">{{ __('frontend.game_server') }}</a></li>
+                                    <li><a href="#">{{ __('frontend.knowledge_base') }}</a></li>
+                                    <li><a href="#">{{ __('frontend.about_us') }}</a></li>
+                                    <li><a href="#">{{ __('frontend.marketing') }}</a></li>
+                                    <li><a href="#">{{ __('frontend.locations') }}</a></li>
+                                    <li><a href="#">{{ __('frontend.news') }}</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -99,18 +99,18 @@
                 </div>
                 <div class="col-lg-4">
                     <div class="widget">
-                        <h5>خبرنامه</h5>
+                        <h5>{{ __('frontend.newsletter') }}</h5>
                         <form action="blank.php" class="row form-dark" id="form_subscribe" method="post" name="form_subscribe">
                             <div class="col text-center">
-                                <a href="#" id="btn-subscribe"><i class="arrow_left bg-color-secondary"></i></a> <input class="form-control" id="txt_subscribe" name="txt_subscribe" placeholder="ایمیل خود را وارد کنید" type="text" >
+                                <a href="#" id="btn-subscribe"><i class="arrow_left bg-color-secondary"></i></a> <input class="form-control" id="txt_subscribe" name="txt_subscribe" placeholder="{{ __('frontend.email_placeholder') }}" type="text" >
                                 <div class="clearfix"></div>
                             </div>
                         </form>
                         <div class="spacer-10"></div>
-                        <small>ایمیل شما نزد ما محفوظ است. ما اسپم نمی کنیم.</small>
+                        <small>{{ __('frontend.newsletter_privacy') }}</small>
                         <div class="spacer-30"></div>
                         <div class="widget">
-                            <h5>ما را دنبال کنید</h5>
+                            <h5>{{ __('frontend.follow_us') }}</h5>
                             <div class="social-icons">
                                 <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
                                 <a href="#"><i class="fa-brands fa-twitter"></i></a>
@@ -130,12 +130,12 @@
                         <div class="de-flex">
                             <div class="de-flex-col">
                                 <a href="index.html">
-                                    کپی رایت 2024 - طراحی شده توسط روشاک
+                                    {{ __('frontend.copyright') }}
                                 </a>
                             </div>
                             <ul class="menu-simple">
-                                <li><a href="#">شرایط &amp; قوانین</a></li>
-                                <li><a href="#">سیاست حفظ حریم خصوصی</a></li>
+                                <li><a href="#">{{ __('frontend.terms') }}</a></li>
+                                <li><a href="#">{{ __('frontend.privacy_policy') }}</a></li>
                             </ul>
                         </div>
                     </div>

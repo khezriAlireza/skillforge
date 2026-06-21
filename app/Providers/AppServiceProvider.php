@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Models\Category;
 use App\Policies\CategoryPolicy;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -24,6 +25,9 @@ class AppServiceProvider extends ServiceProvider
     {
         Paginator::useBootstrap();
 
+        View::composer('*', function ($view) {
+            $view->with('isRtl', app()->getLocale() === 'fa');
+        });
     }
    protected $policies =[
        Category::class => CategoryPolicy::class,

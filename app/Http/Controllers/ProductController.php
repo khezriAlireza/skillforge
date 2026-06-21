@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Product;
-use App\Policies\ProductPolicy;
+use App\Models\SubCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -13,7 +13,7 @@ class ProductController extends Controller
     public function create()
     {
         if (!auth()->user()->can('create', Product::class)){
-            abort(403,'شما توانایی افزودن محصول جدید را ندارید.');
+            abort(403, __('messages.product_create_forbidden'));
         }
         $categories = Category::with('subCategories')->get();
         return view('products.create',compact('categories'));
@@ -29,7 +29,7 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         if (!auth()->user()->can('create', Product::class)){
-            abort(403,'شما توانایی افزودن محصول جدید را ندارید.');
+            abort(403, __('messages.product_create_forbidden'));
         }
         $request->validate([
             'name' =>'string|unique:products,name|max:255|required',
@@ -46,7 +46,7 @@ class ProductController extends Controller
         $request->price =  str_replace(',', '', $request->price);
 
         if (!$request->hasFile('image')){
-            session()->flash('error','تصویری برای محصول انتخاب نکردید.');
+            session()->flash('error', __('messages.product_image_required'));
             return redirect()->back();
         }
 
@@ -69,14 +69,14 @@ class ProductController extends Controller
             'is_special' => $is_special,
             'image' => $imagePath
         ]);
-        session()->flash('status','محول جدید با موفقیت افزوده شد.');
+        session()->flash('status', __('messages.product_created'));
         return redirect()->back();
     }
 
     public function index()
     {
         if (!auth()->user()->can('view',Product::class)){
-            abort(403,'شما توانایی مشاهده محصولات را ندارید.');
+            abort(403, __('messages.product_view_forbidden'));
         }
         $products = Product::with('subCategory')->with('category')->orderBy('id','desc')
             ->paginate(6);
@@ -86,10 +86,10 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         if (!auth()->user()->can('update',Product::class)){
-            abort(403,'شما توانایی ویرایش محصولات را ندارید.');
+            abort(403, __('messages.product_update_forbidden'));
         }
         if (!$product){
-            session()->flash('error','محصول یافت نشد');
+            session()->flash('error', __('messages.product_not_found'));
             return redirect()->back();
         }
 
@@ -100,7 +100,7 @@ class ProductController extends Controller
     public function update(Product $product, Request $request)
     {
         if (!auth()->user()->can('update',Product::class)){
-            abort(403,'شما توانایی ویرایش محصولات را ندارید.');
+            abort(403, __('messages.product_update_forbidden'));
         }
         $request->validate([
             'name' =>'string|max:255|required',
@@ -119,7 +119,7 @@ class ProductController extends Controller
             ->where('id', '!=', $product->id)
             ->first();
         if ($existingProduct) {
-            session()->flash('error', 'نام انتخابی قبلا ثبت شده است.');
+            session()->flash('error', __('messages.product_name_taken'));
             return redirect()->back();
         }
         $request->price =  str_replace(',', '', $request->price);
@@ -145,7 +145,7 @@ class ProductController extends Controller
             'active' => $active,
             'image' => $imagePath
         ]);
-        session()->flash('status', 'محصول مورد نظر با موفقیت ویرایش شد.');
+        session()->flash('status', __('messages.product_updated'));
         return redirect()->back();
 
     }
@@ -153,13 +153,13 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         if (!auth()->user()->can('delete',Product::class)){
-            abort(403,'شما توانایی حذف محصولات را ندارید.');
+            abort(403, __('messages.product_delete_forbidden'));
         }
         if (!$product){
-            session()->flash('error','محصول مورد نظر یافت نشد.');
+            session()->flash('error', __('messages.product_not_found'));
         }
         $product->delete();
-        session()->flash('status','محصول مورد نظر با موفقیت حذف شد');
+        session()->flash('status', __('messages.product_deleted'));
         return redirect()->back();
     }
 }

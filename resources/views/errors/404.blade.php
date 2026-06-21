@@ -15,7 +15,7 @@
                     <div class="row">
                         <div class="col-lg-6 col-sm-6">
                             <div class="widget">
-                                <h5> سرور بازی</h5>
+                                <h5>{{ __('frontend.game_server') }}</h5>
                                 <ul>
                                     <li><a href="#">تندر و شهر</a></li>
                                     <li><a href="#">مسابقه مرموز الف</a></li>
@@ -28,14 +28,14 @@
                         </div>
                         <div class="col-lg-6 col-sm-6">
                             <div class="widget">
-                                <h5>صفحات</h5>
+                                <h5>{{ __('frontend.pages') }}</h5>
                                 <ul>
-                                    <li><a href="#"> سرور بازی</a></li>
-                                    <li><a href="#">پایگاه دانش</a></li>
-                                    <li><a href="#">درباره ما</a></li>
-                                    <li><a href="#">بازاریابی</a></li>
-                                    <li><a href="#">مکان ها</a></li>
-                                    <li><a href="#">اخبار</a></li>
+                                    <li><a href="#">{{ __('frontend.game_server') }}</a></li>
+                                    <li><a href="#">{{ __('frontend.knowledge_base') }}</a></li>
+                                    <li><a href="#">{{ __('frontend.about_us') }}</a></li>
+                                    <li><a href="#">{{ __('frontend.marketing') }}</a></li>
+                                    <li><a href="#">{{ __('frontend.locations') }}</a></li>
+                                    <li><a href="#">{{ __('frontend.news') }}</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -43,12 +43,12 @@
                 </div>
                 <div class="col-lg-4">
                     <div class="widget">
-                        <h5>درباره ما</h5>
-                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.
+                        <h5>{{ __('frontend.about_us') }}</h5>
+                        {{ __('frontend.footer_lorem') }}
                         <div class="spacer-10"></div>
                         <div class="spacer-30"></div>
                         <div class="widget">
-                            <h5>ما را دنبال کنید</h5>
+                            <h5>{{ __('frontend.follow_us') }}</h5>
                             <div class="social-icons">
                                 <a href="#"><i class="fa-brands fa-telegram"></i></a>
                                 <a href="https://discord.com/invite/cxVkzQvA"><i class="fa-brands fa-discord"></i></a>
@@ -66,12 +66,12 @@
                         <div class="de-flex">
                             <div class="de-flex-col">
                                 <a href="index.html">
-                                    کپی رایت 2024 - طراحی شده توسط روشاک
+                                    {{ __('frontend.copyright') }}
                                 </a>
                             </div>
                             <ul class="menu-simple">
-                                <li><a href="#">شرایط &amp; قوانین</a></li>
-                                <li><a href="#">سیاست حفظ حریم خصوصی</a></li>
+                                <li><a href="#">{{ __('frontend.terms') }}</a></li>
+                                <li><a href="#">{{ __('frontend.privacy_policy') }}</a></li>
                             </ul>
                         </div>
                     </div>

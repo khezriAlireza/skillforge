@@ -31,19 +31,19 @@
 
                     <h2 class="wow fadeInUp mb20" data-wow-delay=".2s">{{$item->product->name}}</h2>
                     @if($item->product->discount)
-                        <h5 class="wow fadeInUp mb20" data-wow-delay=".2s">{{$item->product->discount}}% تخفیف</h5>
+                        <h5 class="wow fadeInUp mb20" data-wow-delay=".2s">{{$item->product->discount}}% {{ __('frontend.discount') }}</h5>
                     @endif
                     <h4 class="wow fadeInUp mb20" data-wow-delay=".2s">
                         @if($item->product->discount)
                             <span class="price"><del>{{number_format($item->product->price,'3',',')}}</del></span>/
-                            <span class="price">{{number_format($item->product->final_price,'3',',')}} تومان</span>
+                            <span class="price">{{number_format($item->product->final_price,'3',',')}} {{ __('frontend.currency') }}</span>
                         @else
-                            <span class="price">{{number_format($item->product->price,'3',',')}} تومان</span>
+                            <span class="price">{{number_format($item->product->price,'3',',')}} {{ __('frontend.currency') }}</span>
                         @endif
                     </h4>
                     <h3 class="wow fadeInUp mb20" data-wow-delay=".2s">{{$item->product->description}}</h3>
                     <div class="de-rating-ext wow fadeInUp" data-wow-delay=".4s">
-                        <span class="d-val">تعداد: <span class="item-quantity" data-id="{{ $item->product->id }}">{{ $item->quantity }}</span></span>
+                        <span class="d-val">{{ __('frontend.quantity') }}: <span class="item-quantity" data-id="{{ $item->product->id }}">{{ $item->quantity }}</span></span>
                         <strong><button class="minus-btn" data-id="{{ $item->product->id }}">-</button></strong>
                         <strong><button class="plus-btn" data-id="{{ $item->product->id }}">+</button></strong>
                         <strong>
@@ -61,21 +61,21 @@
                 <div class="col-6">
                     <button id="clear-cart-btn" class=" btn-danger px-4 py-2" style="min-width: 200px;">
 
-                        پاک کردن کل سبد خرید
+                        {{ __('frontend.clear_cart') }}
                     </button>
                 </div>
                 <div class="col-6">
                     <form method="POST" action="{{ route('cart.checkout') }}">
                         @csrf
                         <button type="submit" class="btn-main px-4 py-2" style="min-width: 200px;">
-                            تایید و پرداخت
+                            {{ __('frontend.checkout') }}
                         </button>
                     </form>
                 </div>
             </div>
         @else
             <div class="row text-center wow fadeInUp mb-3 animated">
-                <h5  style="visibility: visible; animation-name: fadeInUp;">سبد خرید خالی می&zwnj;باشد!!</h5>
+                <h5  style="visibility: visible; animation-name: fadeInUp;">{{ __('frontend.cart_empty') }}</h5>
             </div>
         @endif
     </div>
@@ -93,13 +93,13 @@
             <div class="col-lg-4">
                 <img src="images/logo.png" alt="" >
                 <div class="spacer-20"></div>
-                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.</p>
+                <p>{{ __('frontend.footer_lorem') }}</p>
             </div>
             <div class="col-lg-4">
                 <div class="row">
                     <div class="col-lg-6 col-sm-6">
                         <div class="widget">
-                            <h5> سرور بازی</h5>
+                            <h5>{{ __('frontend.game_server') }}</h5>
                             <ul>
                                 <li><a href="#">تندر و شهر</a></li>
                                 <li><a href="#">مسابقه مرموز الف</a></li>
@@ -112,14 +112,14 @@
                     </div>
                     <div class="col-lg-6 col-sm-6">
                         <div class="widget">
-                            <h5>صفحات</h5>
+                            <h5>{{ __('frontend.pages') }}</h5>
                             <ul>
-                                <li><a href="#"> سرور بازی</a></li>
-                                <li><a href="#">پایگاه دانش</a></li>
-                                <li><a href="#">درباره ما</a></li>
-                                <li><a href="#">بازاریابی</a></li>
-                                <li><a href="#">مکان ها</a></li>
-                                <li><a href="#">اخبار</a></li>
+                                <li><a href="#">{{ __('frontend.game_server') }}</a></li>
+                                <li><a href="#">{{ __('frontend.knowledge_base') }}</a></li>
+                                <li><a href="#">{{ __('frontend.about_us') }}</a></li>
+                                <li><a href="#">{{ __('frontend.marketing') }}</a></li>
+                                <li><a href="#">{{ __('frontend.locations') }}</a></li>
+                                <li><a href="#">{{ __('frontend.news') }}</a></li>
                             </ul>
                         </div>
                     </div>
@@ -127,18 +127,18 @@
             </div>
             <div class="col-lg-4">
                 <div class="widget">
-                    <h5>خبرنامه</h5>
+                    <h5>{{ __('frontend.newsletter') }}</h5>
                     <form action="blank.php" class="row form-dark" id="form_subscribe" method="post" name="form_subscribe">
                         <div class="col text-center">
-                            <a href="#" id="btn-subscribe"><i class="arrow_left bg-color-secondary"></i></a> <input class="form-control" id="txt_subscribe" name="txt_subscribe" placeholder="ایمیل خود را وارد کنید" type="text" >
+                            <a href="#" id="btn-subscribe"><i class="arrow_left bg-color-secondary"></i></a> <input class="form-control" id="txt_subscribe" name="txt_subscribe" placeholder="{{ __('frontend.email_placeholder') }}" type="text" >
                             <div class="clearfix"></div>
                         </div>
                     </form>
                     <div class="spacer-10"></div>
-                    <small>ایمیل شما نزد ما محفوظ است. ما اسپم نمی کنیم.</small>
+                    <small>{{ __('frontend.newsletter_privacy') }}</small>
                     <div class="spacer-30"></div>
                     <div class="widget">
-                        <h5>ما را دنبال کنید</h5>
+                        <h5>{{ __('frontend.follow_us') }}</h5>
                         <div class="social-icons">
                             <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
                             <a href="#"><i class="fa-brands fa-twitter"></i></a>
@@ -158,12 +158,12 @@
                     <div class="de-flex">
                         <div class="de-flex-col">
                             <a href="index.html">
-                                کپی رایت 2024 - طراحی شده توسط روشاک
+                                {{ __('frontend.copyright') }}
                             </a>
                         </div>
                         <ul class="menu-simple">
-                            <li><a href="#">شرایط &amp; قوانین</a></li>
-                            <li><a href="#">سیاست حفظ حریم خصوصی</a></li>
+                            <li><a href="#">{{ __('frontend.terms') }}</a></li>
+                            <li><a href="#">{{ __('frontend.privacy_policy') }}</a></li>
                         </ul>
                     </div>
                 </div>
@@ -217,7 +217,7 @@
                     }
                 },
                 error: function () {
-                    alert("مشکلی پیش آمد، لطفاً دوباره تلاش کنید.");
+                    alert(@json(__('cart.quantity_update_error')));
                     location.reload();
                 },
                 complete: function () {
@@ -236,7 +236,7 @@
         var button = $(this);
         var productId = button.data("id");
 
-        if (!confirm("آیا مطمئن هستید که می‌خواهید این محصول را حذف کنید؟")) {
+        if (!confirm(@json(__('cart.confirm_remove_item')))) {
             throttle = false;
             return;
         }
@@ -259,7 +259,7 @@
                 }
             },
             error: function () {
-                alert("خطا در حذف محصول.");
+                alert(@json(__('cart.remove_error')));
             },
             complete: function () {
                 throttle = false;
@@ -295,7 +295,7 @@
 
 <script>
     $('#clear-cart-btn').click(function () {
-        if (confirm("آیا مطمئن هستید که می‌خواهید کل سبد خرید را پاک کنید؟")) {
+        if (confirm(@json(__('cart.confirm_clear_cart')))) {
             $.ajax({
                 url: "{{ route('cart.clear') }}",
                 type: "POST",
@@ -304,14 +304,14 @@
                 },
                 success: function (response) {
                     $('#cart-section').fadeOut(500, function () {
-                        $(this).html('<h3 class="text-center text-success">سبد خرید با موفقیت پاک شد 🎉</h3>').fadeIn(300);
+                        $(this).html('<h3 class="text-center text-success">' + @json(__('cart.cart_cleared_success')) + '</h3>').fadeIn(300);
                     });
 
                     // تعداد آیتم‌ها در هدر رو صفر کن
                     $('#cart-count').text('0');
                 },
                 error: function () {
-                    alert("خطایی رخ داده است.");
+                    alert(@json(__('cart.generic_error')));
                 }
             });
         }

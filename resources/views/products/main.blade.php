@@ -1,14 +1,15 @@
 @include('partials.main.header')
+        <div class="msg" style="display: none;"></div>
         <section id="subheader" class="jarallax pb20">
             <div class="de-gradient-edge-bottom"></div>
             <img src="{{asset('images/background/6.webp')}}" class="jarallax-img" alt="">
             <div class="container z-1000">
                 <div class="row">
                     <div class="col-lg-12 mb-3 text-center">
-                        <h2 class="wow fadeInUp mb-0" data-wow-delay=".2s">محصولات</h2>
+                        <h2 class="wow fadeInUp mb-0" data-wow-delay=".2s">{{ __('frontend.products') }}</h2>
                         <hr class="mt20">
                         <ul id="filters" class="wow fadeInUp" data-wow-delay="0s">
-                            <li><a href="#" data-filter="*" class="selected">همه محصولات</a></li>
+                            <li><a href="#" data-filter="*" class="selected">{{ __('frontend.all_products') }}</a></li>
                             @foreach($subCategories as $subCategory)
                                 <li><a href="#" data-filter=".{{$subCategory->id}}">{{$subCategory->name}}</a></li>
                             @endforeach
@@ -28,7 +29,7 @@
                         <div class="d-overlay">
                             @if($product->discount)
                                 <div class="d-label">
-                                    {{$product->discount}}% تخفیف
+                                    {{$product->discount}}% {{ __('frontend.discount') }}
                                 </div>
                             @endif
                             <div class="d-text">
@@ -38,23 +39,23 @@
                                 </div>
 
                                 @if($product->discount)
-                                    <p class="d-price"> مبلغ پرداختی
+                                    <p class="d-price"> {{ __('frontend.payment_amount') }}
                                         <span class="price"><del>{{number_format($product->price,'3',',')}}</del></span>
-                                        <span class="price">{{number_format($product->final_price,'3',',')}} تومان</span>
+                                        <span class="price">{{number_format($product->final_price,'3',',')}} {{ __('frontend.currency') }}</span>
                                     </p>
                                 @else
-                                    <p class="d-price"> مبلغ پرداختی
-                                        <span class="price">{{number_format($product->price,'3',',')}} تومان</span>
+                                    <p class="d-price"> {{ __('frontend.payment_amount') }}
+                                        <span class="price">{{number_format($product->price,'3',',')}} {{ __('frontend.currency') }}</span>
                                     </p>
                                 @endif
 
 
                                 @auth
-                                    <a class="btn-main btn-fullwidth addToCart" data-id="{{ $product->id }}" href="pricing-table-one.html">
-                                        <span>🛒 افزودن به سبد خرید</span>
+                                    <a class="btn-main btn-fullwidth addToCart" data-id="{{ $product->id }}" href="#">
+                                        <span>🛒 {{ __('frontend.add_to_cart') }}</span>
                                     </a>                                @endauth
                                 @guest
-                                    <a class="btn-main btn-fullwidth" href="{{route('customer.login')}}" ><span>وارد حساب خود شوید</span></a>
+                                    <a class="btn-main btn-fullwidth" href="{{route('customer.login')}}" ><span>{{ __('frontend.login_to_purchase') }}</span></a>
                                 @endguest
 
 
@@ -80,13 +81,13 @@
                 <div class="col-lg-4">
                     <img src="images/logo.png" alt="" >
                     <div class="spacer-20"></div>
-                    <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.</p>
+                    <p>{{ __('frontend.footer_lorem') }}</p>
                 </div>
                 <div class="col-lg-4">
                     <div class="row">
                         <div class="col-lg-6 col-sm-6">
                             <div class="widget">
-                                <h5> سرور بازی</h5>
+                                <h5>{{ __('frontend.game_server') }}</h5>
                                 <ul>
                                     <li><a href="#">تندر و شهر</a></li>
                                     <li><a href="#">مسابقه مرموز الف</a></li>
@@ -99,14 +100,14 @@
                         </div>
                         <div class="col-lg-6 col-sm-6">
                             <div class="widget">
-                                <h5>صفحات</h5>
+                                <h5>{{ __('frontend.pages') }}</h5>
                                 <ul>
-                                    <li><a href="#"> سرور بازی</a></li>
-                                    <li><a href="#">پایگاه دانش</a></li>
-                                    <li><a href="#">درباره ما</a></li>
-                                    <li><a href="#">بازاریابی</a></li>
-                                    <li><a href="#">مکان ها</a></li>
-                                    <li><a href="#">اخبار</a></li>
+                                    <li><a href="#">{{ __('frontend.game_server') }}</a></li>
+                                    <li><a href="#">{{ __('frontend.knowledge_base') }}</a></li>
+                                    <li><a href="#">{{ __('frontend.about_us') }}</a></li>
+                                    <li><a href="#">{{ __('frontend.marketing') }}</a></li>
+                                    <li><a href="#">{{ __('frontend.locations') }}</a></li>
+                                    <li><a href="#">{{ __('frontend.news') }}</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -114,18 +115,18 @@
                 </div>
                 <div class="col-lg-4">
                     <div class="widget">
-                        <h5>خبرنامه</h5>
+                        <h5>{{ __('frontend.newsletter') }}</h5>
                         <form action="blank.php" class="row form-dark" id="form_subscribe" method="post" name="form_subscribe">
                             <div class="col text-center">
-                                <a href="#" id="btn-subscribe"><i class="arrow_left bg-color-secondary"></i></a> <input class="form-control" id="txt_subscribe" name="txt_subscribe" placeholder="ایمیل خود را وارد کنید" type="text" >
+                                <a href="#" id="btn-subscribe"><i class="arrow_left bg-color-secondary"></i></a> <input class="form-control" id="txt_subscribe" name="txt_subscribe" placeholder="{{ __('frontend.email_placeholder') }}" type="text" >
                                 <div class="clearfix"></div>
                             </div>
                         </form>
                         <div class="spacer-10"></div>
-                        <small>ایمیل شما نزد ما محفوظ است. ما اسپم نمی کنیم.</small>
+                        <small>{{ __('frontend.newsletter_privacy') }}</small>
                         <div class="spacer-30"></div>
                         <div class="widget">
-                            <h5>ما را دنبال کنید</h5>
+                            <h5>{{ __('frontend.follow_us') }}</h5>
                             <div class="social-icons">
                                 <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
                                 <a href="#"><i class="fa-brands fa-twitter"></i></a>
@@ -145,12 +146,12 @@
                         <div class="de-flex">
                             <div class="de-flex-col">
                                 <a href="index.html">
-                                    کپی رایت 2024 - طراحی شده توسط روشاک
+                                    {{ __('frontend.copyright') }}
                                 </a>
                             </div>
                             <ul class="menu-simple">
-                                <li><a href="#">شرایط &amp; قوانین</a></li>
-                                <li><a href="#">سیاست حفظ حریم خصوصی</a></li>
+                                <li><a href="#">{{ __('frontend.terms') }}</a></li>
+                                <li><a href="#">{{ __('frontend.privacy_policy') }}</a></li>
                             </ul>
                         </div>
                     </div>
@@ -206,7 +207,7 @@
                         window.location.href = "{{ route('customer.login') }}";
                     } else {
                         console.log("AJAX Error:", xhr.responseText);
-                        alert("خطا در افزودن به سبد خرید، لطفا دوباره تلاش کنید!");
+                        alert(@json(__('frontend.cart_error')));
                     }
                 }
             });
@@ -237,8 +238,6 @@
         };
     });
 </script>
-
-
 </body>
 
 </html>

@@ -101,7 +101,7 @@ class RegisteredUserController extends Controller
         event(new Registered($user));
 
         Auth::login($user);
-        session()->flash('status','اکانت شما با موفقیت ایجاد شد.');
+        session()->flash('status', __('messages.account_created'));
 
         return redirect()->route('welcome');
     }
@@ -159,13 +159,13 @@ class RegisteredUserController extends Controller
             if (User::where('p_num', $identifier)->exists()) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'این شماره قبلاً ثبت شده است. لطفاً وارد شوید.',
+                    'message' => __('messages.phone_already_registered'),
                 ]);
             }
 
             return response()->json([
                 'success' => false,
-                'message' => 'ورود با پیامک در حال حاضر فعال نیست. لطفاً از ثبت‌نام معمولی استفاده کنید.',
+                'message' => __('messages.sms_login_disabled'),
             ]);
 
         } else {
@@ -173,12 +173,12 @@ class RegisteredUserController extends Controller
             if ($user) {
                 return response()->json([
                     'success' => true,
-                    'message' => 'یوزرنیم موجود است. لطفاً وارد شوید.'
+                    'message' => __('messages.username_exists_login'),
                 ]);
             } else {
                 return response()->json([
                     'success' => false,
-                    'message' => 'یوزرنیم موجود نیست. لطفاً شماره موبایل وارد کنید.'
+                    'message' => __('messages.username_not_exists_register'),
                 ]);
             }
         }
@@ -199,7 +199,7 @@ class RegisteredUserController extends Controller
     {
         return response()->json([
             'success' => false,
-            'message' => 'ورود با پیامک در حال حاضر فعال نیست.',
+            'message' => __('messages.sms_login_disabled_short'),
         ]);
     }
 

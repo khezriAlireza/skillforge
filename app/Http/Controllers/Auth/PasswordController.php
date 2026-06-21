@@ -38,7 +38,7 @@ class PasswordController extends Controller
         $user->update([
             'password' => Hash::make($request->input('password')),
         ]);
-        session()->flash('status', 'کلمه عبور کاربر با موفقیت تغییر کرد');
+        session()->flash('status', __('messages.password_changed'));
 
         return redirect()->back();
     }

@@ -7,14 +7,13 @@ use App\Models\Blog;
 use App\Models\CartItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use function PHPUnit\Framework\isEmpty;
 
 class BlogController extends Controller
 {
     public function index()
     {
         if (!auth()->user()->can('create', Blog::class)){
-            abort(403,'شما توانایی افزودن محصول جدید را ندارید.');
+            abort(403, __('messages.product_create_forbidden'));
         }
         $posts = Blog::with('post')->orderBy('id','desc')
             ->paginate(6);
@@ -29,7 +28,7 @@ class BlogController extends Controller
     public function create()
     {
         if (!auth()->user()->can('create', Blog::class)){
-            abort('403','شما تواینایی ایجاد پست جدید ندارید.');
+            abort(403, __('messages.blog_create_forbidden'));
         }
 
         return view('blog.create');
@@ -38,7 +37,7 @@ class BlogController extends Controller
     public function store(BlogRequest $request)
     {
         if (!auth()->user()->can('create', Blog::class)) {
-            abort(403, 'شما اجازه ایجاد پست جدید را ندارید.');
+            abort(403, __('messages.blog_create_forbidden'));
         }
         $imagePath = null;
         if ($request->hasFile('image')){
@@ -51,14 +50,14 @@ class BlogController extends Controller
             'text' => $request->text,
             'image' => $imagePath,
         ]);
-        session()->flash('status','پست با موفقیت ثبت شد!');
+        session()->flash('status', __('messages.blog_created'));
         return redirect()->route('blog.index');
     }
 
     public function edit(Blog $post)
     {
         if (!auth()->user()->can('update', Blog::class)){
-            abort(403,'شما توانایی ویرایش پست را ندارید.');
+            abort(403, __('messages.blog_update_forbidden'));
         }
         return view('blog.edit',compact('post'));
     }
@@ -66,21 +65,18 @@ class BlogController extends Controller
     public function update(BlogRequest $request, Blog $post)
     {
         if (!auth()->user()->can('update', $post)) {
-            abort(403, 'شما اجازه ویرایش این پست را ندارید.');
+            abort(403, __('messages.blog_edit_forbidden'));
         }
 
         $data = $request->validated();
 
-        // Handle new image upload if a new file is selected
         if ($request->hasFile('image')) {
-            // Optional: Delete old image if exists
             if ($post->image && \Storage::disk('public')->exists($post->image)) {
                 \Storage::disk('public')->delete($post->image);
             }
 
             $data['image'] = $request->file('image')->store('posts', 'public');
         } else {
-            // If no new image uploaded, keep the existing one
             $data['image'] = $post->image;
         }
 
@@ -90,27 +86,27 @@ class BlogController extends Controller
             'image' => $data['image'],
         ]);
 
-        session()->flash('status','پست با موفقیت ویرایش شد.');
+        session()->flash('status', __('messages.blog_updated'));
         return redirect()->route('blog.index');
     }
 
     public function destroy(Blog $post)
     {
         if (!auth()->user()->can('delete',Blog::class)){
-            abort(403,'شما توانایی حذف پست را ندارید.');
+            abort(403, __('messages.blog_delete_forbidden'));
         }
         if (!$post){
-            session()->flash('error','پست مورد نظر یافت نشد.');
+            session()->flash('error', __('messages.blog_not_found'));
         }
         $post->delete();
-        session()->flash('status','محصول مورد نظر با موفقیت حذف شد');
+        session()->flash('status', __('messages.blog_deleted'));
         return redirect()->back();
     }
 
     public function favourite(Request $request)
     {
         if (!auth()->user()->can('favourite', Blog::class)) {
-            abort(403, 'شما توانایی برگزیدن پست را ندارید.');
+            abort(403, __('messages.blog_favourite_forbidden'));
         }
 
         $favPosts = array_filter([
@@ -120,15 +116,12 @@ class BlogController extends Controller
         ]);
 
         if (count($favPosts) !== count(array_unique($favPosts))) {
-            session()->flash('error', 'پست‌های انتخابی نمی‌توانند مشابه باشند.');
+            session()->flash('error', __('messages.blog_favourite_duplicate'));
             return redirect()->back();
         }
 
-
-        // حذف همه برگزیده‌ها
         Blog::where('favourite', 1)->update(['favourite' => 0]);
 
-        // اعمال برگزیده‌های جدید
         foreach (['fav_post_1', 'fav_post_2', 'fav_post_3'] as $favPostKey) {
             $postId = (int) $request->input($favPostKey);
             if ($postId && Blog::find($postId)) {
@@ -136,7 +129,7 @@ class BlogController extends Controller
             }
         }
 
-        session()->flash('status', 'پست‌های برگزیده با موفقیت آپدیت شدند.');
+        session()->flash('status', __('messages.blog_favourite_updated'));
         return redirect()->back();
     }
 
@@ -156,7 +149,4 @@ class BlogController extends Controller
             ->paginate(6);
         return view('blog.post_list',compact('posts','cartItems'));
     }
-
-
-
 }
