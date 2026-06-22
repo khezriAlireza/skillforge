@@ -233,23 +233,22 @@
                                         <div class="modal-header">
                                             <button type="button"  class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="{{ __('frontend.close') }}"></button>
                                         </div>
-                                        <div class="modal-body" style="background:rgba(20, 20, 50, 0.6);backdrop-filter: blur(10px);                                                 position: relative;" >
+                                        <div class="modal-body" style="background:rgba(20, 20, 50, 0.6);backdrop-filter: blur(10px); 
+                                        position: relative;" >
                                             <div style="position: relative;">
                                                 <div id="iframe-loader" style="display: none;">
                                                     {{ __('frontend.loading') }}
                                                 </div>
                                                 <iframe id="myIframe" src="{{ route('cart.modal') }}" width="100%" height="500px"></iframe>
                                             </div>
-                                            @if(!empty($cartItems))
-                                                <div class="text-center">
-                                                    <button style="
-                                                            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
-                                                            color: white"
-                                                            onclick="location.href='{{ route('cart.index') }}'" class="btn-cyberpunk">
-                                                        <span>{{ __('frontend.view_cart') }}</span>
-                                                    </button>
-                                                </div>
-                                            @endif
+                                            <div class="text-center" id="view-cart-btn-container" style="{{ empty($cartItems) ? 'display: none;' : '' }}">
+                                                <button style="
+                                                        background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+                                                        color: white"
+                                                        onclick="location.href='{{ route('cart.index') }}'" class="btn-cyberpunk">
+                                                    <span>{{ __('frontend.view_cart') }}</span>
+                                                </button>
+                                            </div>
                                         </div>
 
                                     </div>

@@ -681,6 +681,9 @@
                             let currentCount = parseInt(cartCount.text()) || 0; // مقدار فعلی را بگیر
                             cartCount.text(currentCount + 1); // مقدار جدید را تنظیم کن
                         }
+
+                        // نمایش دکمه مشاهده سبد خرید در صورتی که مخفی بوده باشد
+                        $("#view-cart-btn-container").show();
                     } else if (response.message2) {
                         messageContainer.fadeIn(200).html(response.message2).removeClass("alert-success").addClass("alert-danger");
                     }
