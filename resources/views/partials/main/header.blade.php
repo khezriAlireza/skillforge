@@ -229,19 +229,16 @@
 
                             <div class="modal fade" id="pageModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-lg">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button"  class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="{{ __('frontend.close') }}"></button>
-                                        </div>
-                                        <div class="modal-body" style="background:rgba(20, 20, 50, 0.6);backdrop-filter: blur(10px); 
-                                        position: relative;" >
+                                    <div class="modal-content" style="border: 2px solid var(--primary-color); box-shadow: 0 0 25px var(--primary-color); border-radius: 15px; background: #0b0b13; overflow: hidden;">
+                                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="{{ __('frontend.close') }}" style="position: absolute; top: 15px; right: 15px; z-index: 1050; background-color: rgba(0,0,0,0.5); border-radius: 50%; padding: 10px;"></button>
+                                        <div class="modal-body" style="padding: 5px; position: relative;">
                                             <div style="position: relative;">
-                                                <div id="iframe-loader" style="display: none;">
+                                                <div id="iframe-loader" style="display: none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; z-index: 10;">
                                                     {{ __('frontend.loading') }}
                                                 </div>
-                                                <iframe id="myIframe" src="{{ route('cart.modal') }}" width="100%" height="500px"></iframe>
+                                                <iframe id="myIframe" src="{{ route('cart.modal') }}" width="100%" height="500px" style="border: none; border-radius: 10px; background: transparent;"></iframe>
                                             </div>
-                                            <div class="text-center" id="view-cart-btn-container" style="{{ empty($cartItems) ? 'display: none;' : '' }}">
+                                            <div class="text-center mt-2 mb-2" id="view-cart-btn-container" style="{{ empty($cartItems) ? 'display: none;' : '' }}">
                                                 <button style="
                                                         background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
                                                         color: white"
@@ -250,7 +247,6 @@
                                                 </button>
                                             </div>
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
