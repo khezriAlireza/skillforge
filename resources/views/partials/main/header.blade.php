@@ -229,10 +229,14 @@
                             <div class="me-3">
                                 @include('partials.locale-switcher')
                             </div>
-                            <a style="color: #FFFFFF" href="#" data-bs-toggle="modal" data-bs-target="#pageModal" data-bs-backdrop="true">
+                           @auth
+                           <a style="color: #FFFFFF" href="#" data-bs-toggle="modal" data-bs-target="#pageModal" data-bs-backdrop="true">
                                 <span id="cart-count">{{ $cartItems }}</span>
                                 <i class="fa fa-shopping-cart"></i>
                             </a>
+                            
+                           @endauth
+                            
 
                             <div class="modal fade" id="pageModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-lg">
