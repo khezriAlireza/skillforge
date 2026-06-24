@@ -28,6 +28,13 @@
         .locale-switcher .locale-link { color: #fff; text-decoration: none; font-size: 13px; padding: 2px 4px; opacity: 0.7; }
         .locale-switcher .locale-link.active { opacity: 1; font-weight: bold; text-decoration: underline; }
         .locale-switcher .locale-separator { color: #fff; opacity: 0.5; font-size: 12px; }
+        
+        /* Fix for modal shifting page in RTL */
+        body.modal-open {
+            padding-right: 0 !important;
+            padding-left: 0 !important;
+            overflow-y: auto !important;
+        }
     </style>
 </head>
 
