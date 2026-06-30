@@ -102,4 +102,6 @@ return [
     'news_and_articles' => 'اخبار & مقالات',
     'view_section' => 'مشاهده قسمت',
     'order_now_hover' => 'هم اکنون سفارش دهید',
+    'cart_grand_total' => 'مبلغ کل',
+    'item_total' => 'مجموع آیتم',
 ];

@@ -14,7 +14,7 @@
     @if($isRtl)
         <link href="{{asset('css/bootstrap.rtl.min.css')}}" rel="stylesheet" type="text/css" id="bootstrap">
     @else
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css" id="bootstrap">
+        <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" id="bootstrap">
     @endif
     <link href="{{asset('css/plugins.css')}}" rel="stylesheet" type="text/css" >
     <link href="{{asset('css/swiper.css')}}" rel="stylesheet" type="text/css" >
@@ -234,7 +234,6 @@
                                 <span id="cart-count">{{ $cartItems }}</span>
                                 <i class="fa fa-shopping-cart"></i>
                             </a>
-                            
                            @endauth
                             
 

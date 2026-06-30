@@ -102,4 +102,6 @@ return [
     'news_and_articles' => 'News & Articles',
     'view_section' => 'View Section',
     'order_now_hover' => 'Order Now',
+    'cart_grand_total' => 'Grand Total',
+    'item_total' => 'Item Total',
 ];

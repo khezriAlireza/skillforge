@@ -9,13 +9,23 @@
     @if($isRtl)
         <link href="{{asset('css/bootstrap.rtl.min.css')}}" rel="stylesheet" type="text/css" id="bootstrap">
     @else
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css" id="bootstrap">
+        <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" id="bootstrap">
     @endif
     <link href="{{asset('css/plugins.css')}}" rel="stylesheet" type="text/css" >
     <link href="{{asset('css/swiper.css')}}" rel="stylesheet" type="text/css" >
     <link href="{{asset('css/style.css')}}" rel="stylesheet" type="text/css" >
     <link href="{{asset('css/coloring.css')}}" rel="stylesheet" type="text/css" >
     <link id="colors" href="{{asset('css/colors/scheme-01.css')}}" rel="stylesheet" type="text/css" >
+    <style>
+        /* Force dark theme text colors because LTR bootstrap overrides them */
+        body.dark-scheme, body.dark-scheme h2, body.dark-scheme h3, body.dark-scheme h4, body.dark-scheme p {
+            color: #fff !important;
+        }
+        /* Ensure the bright part of the background image (right side) is always visible even in LTR */
+        .jarallax-img {
+            object-position: right center !important;
+        }
+    </style>
     <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 
