@@ -10,8 +10,8 @@
                         <hr class="mt20">
                         <ul id="filters" class="wow fadeInUp" data-wow-delay="0s">
                             <li><a href="#" data-filter="*" class="selected">{{ __('frontend.all_products') }}</a></li>
-                            @foreach($subCategories as $subCategory)
-                                <li><a href="#" data-filter=".{{$subCategory->id}}">{{$subCategory->name}}</a></li>
+                            @foreach($subCategories as $filterSubCategory)
+                                <li><a href="#" data-filter=".{{$filterSubCategory->id}}">{{$filterSubCategory->name}}</a></li>
                             @endforeach
 
                         </ul>
@@ -20,8 +20,36 @@
             </div>
         </section>
 
+
 <section class="no-top">
     <div class="container">
+        @if($products->isEmpty())
+            <div class="row justify-content-center" style="margin-top: 120px; margin-bottom: 80px;">
+                <div class="col-lg-6 col-md-8">
+                    <div class="text-center py-5 px-4" style="background: linear-gradient(145deg, #1a1a24, #12121a); border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.05); box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3); position: relative; overflow: hidden;">
+                        <div style="position: absolute; top: -50px; left: 50%; transform: translateX(-50%); width: 100px; height: 100px; background: var(--primary-color); filter: blur(60px); opacity: 0.3; border-radius: 50%;"></div>
+                        <i class="fa fa-box-open fa-4x mb-4" style="color: var(--primary-color); opacity: 0.9; filter: drop-shadow(0 0 10px rgba(var(--primary-color-rgb), 0.5));"></i>
+                        <h3 class="mb-3" style="font-weight: 600; letter-spacing: 0.5px;">{{ __('frontend.no_products_title') }}</h3>
+                        <p class="mb-4" style="color: #a0a0b0; font-size: 1.1rem; line-height: 1.6;">{{ __('frontend.no_products_message', ['name' => $subCategory->name]) }}</p>
+                        <style>
+                            .btn-main.no-flash::before, .btn-main.no-flash::after {
+                                display: none !important;
+                                content: none !important;
+                            }
+                            .btn-main.no-flash:hover {
+                                transform: translateY(-2px);
+                            }
+                        </style>
+                        <a class="btn-main no-flash" href="{{ route('subCategories', ['category' => $subCategory->category_id]) }}" style="border-radius: 30px; padding: 12px 35px !important; font-weight: 600; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); display: inline-flex !important; align-items: center; justify-content: center; width: fit-content; text-align: center; height: auto !important; transition: all 0.3s ease;">
+                            <div style="display: flex; align-items: center; justify-content: center; gap: 10px;">
+                                <i class="fa fa-arrow-left"></i>
+                                {{ __('frontend.browse_other_categories') }}
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        @else
         <div id="gallery" class="row g-4">
             @foreach($products as $product)
                 <div class="col-lg-4 col-md-6 item {{$product->subCategory->id}} survival">
@@ -67,6 +95,7 @@
                 </div>
             @endforeach
         </div>
+        @endif
     </div>
 </section>
 
